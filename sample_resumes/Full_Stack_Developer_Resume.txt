@@ -1,0 +1,33 @@
+===================================================================
+JORDAN LEE  |  FULL STACK DEVELOPER
+Email: jordan.lee@example.com  |  GitHub: github.com/jordanlee-dev
+===================================================================
+
+SUMMARY
+Versatile Full Stack Engineer with expertise building responsive React / Next.js frontends,
+robust Node.js / Express and FastAPI backends, relational and NoSQL database architecture,
+and automated CI/CD deployment pipelines.
+
+EDUCATION
+B.E. Computer Science & Engineering  |  2020 – 2024
+
+CERTIFICATIONS
+  • Meta Certified Full Stack Engineer (Coursera)
+  • Udacity Full Stack Web Developer Nanodegree
+
+TECHNICAL SKILLS
+  Programming       : JavaScript ES6+, TypeScript, Python
+  Frontend          : React, Next.js (App Router), Redux, Tailwind CSS, Responsive Design
+  Backend           : Node.js, Express, FastAPI, REST API, GraphQL
+  Cloud & DevOps    : Docker, GitHub Actions, CI/CD Pipelines
+  Databases         : MongoDB, PostgreSQL, SQL, Prisma ORM
+
+PROJECT HIGHLIGHTS
+  • Built an enterprise SaaS e-commerce platform using Next.js App Router frontend
+    connected to Node.js & Express REST APIs, supporting 10,000+ concurrent users.
+  • Engineered a real-time chat application with a WebSocket & GraphQL backend,
+    PostgreSQL persistence, and Docker containerisation.
+  • Automated a multi-region microservices deployment pipeline using GitHub Actions
+    and Docker containers, cutting release cycle time by 70%.
+
+===================================================================

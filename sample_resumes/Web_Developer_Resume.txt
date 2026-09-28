@@ -1,0 +1,30 @@
+===================================================================
+SAM TAYLOR  |  WEB DEVELOPER
+Email: sam.taylor@example.com  |  GitHub: github.com/samtaylor-web
+===================================================================
+
+SUMMARY
+Creative Web Developer specialising in pixel-perfect HTML5, CSS3, JavaScript ES6+,
+mobile-first responsive design, and RESTful API integrations.
+
+EDUCATION
+B.Sc. Information Technology  |  2021 – 2025
+
+CERTIFICATIONS
+  • W3Schools Certified Web Developer
+  • freeCodeCamp: Responsive Web Design Certification
+
+TECHNICAL SKILLS
+  Programming       : JavaScript ES6+, HTML5, CSS3
+  Frontend          : Flexbox, CSS Grid, Responsive Design, Mobile-First, Bootstrap,
+                      Tailwind CSS, DOM Manipulation
+  Data & APIs       : Fetch API, Axios, REST API Integration, Web APIs
+  DevOps            : Git Version Control, GitHub
+
+PROJECT HIGHLIGHTS
+  • Designed and deployed a fully mobile-responsive portfolio website with custom
+    CSS3 Grid animations, achieving a 98/100 Google Lighthouse performance score.
+  • Integrated multiple external REST APIs using Vanilla JavaScript ES6+ and the
+    Fetch API to build a real-time Web API dashboard with live data updates.
+
+===================================================================

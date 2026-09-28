@@ -1,0 +1,33 @@
+===================================================================
+ALEX MORGAN  |  SENIOR DATA SCIENTIST
+Email: alex.morgan@example.com  |  GitHub: github.com/alexmorgan-ds
+===================================================================
+
+SUMMARY
+Data Scientist with 4+ years of experience building predictive machine learning models,
+deep learning neural networks in PyTorch, and deploying production-grade MLOps pipelines.
+Certified Data Science Professional with a strong foundation in statistical modeling.
+
+EDUCATION
+M.Sc. Data Science & Artificial Intelligence  |  2022 – 2024
+
+CERTIFICATIONS
+  • Coursera / DeepLearning.AI: Data Science Professional Certificate
+  • DataCamp: Senior Data Scientist Track Certification
+
+TECHNICAL SKILLS
+  Programming       : Python, SQL
+  Data Tools        : Scikit-Learn, PyTorch, TensorFlow, XGBoost, Pandas, NumPy,
+                      Statistical Modeling, Hypothesis Testing, A/B Testing, Data Wrangling
+  Cloud             : AWS (SageMaker), GCP (BigQuery), MLflow
+  DevOps            : Docker, CI/CD Pipelines, Model Versioning
+
+PROJECT HIGHLIGHTS
+  • Built XGBoost and PyTorch neural network ensemble models achieving 94% ROC-AUC on a
+    customer churn prediction dataset of 2M+ records.
+  • Deployed PyTorch deep learning models into a containerised MLOps pipeline using Docker
+    and MLflow, reducing model deployment time from days to under 2 hours.
+  • Designed a statistical A/B testing platform that analysed 1M+ active user events,
+    surfacing insights that drove a 12% lift in product conversion rate.
+
+===================================================================
