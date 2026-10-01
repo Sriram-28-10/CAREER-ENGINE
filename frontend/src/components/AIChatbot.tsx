@@ -11,6 +11,7 @@ interface Message {
 interface AIChatbotProps {
   selectedRole: string;
   readinessPct?: number;
+  hidden?: boolean;
 }
 
 const PRESET_PROMPTS = [
@@ -20,7 +21,8 @@ const PRESET_PROMPTS = [
   "Who created this application?"
 ];
 
-export default function AIChatbot({ selectedRole, readinessPct }: AIChatbotProps) {
+export default function AIChatbot({ selectedRole, readinessPct, hidden }: AIChatbotProps) {
+  if (hidden) return null;
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {

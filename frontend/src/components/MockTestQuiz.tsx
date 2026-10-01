@@ -456,19 +456,36 @@ export default function MockTestQuiz({ selectedRoleId, roleName, onQuizComplete 
   };
 
   // ─────────────────────────────────────────────────────────────────
-  // Mic level animation loop (runs during setup as well!)
+  // Mic level animation loop (using RMS Audio level)
   // ─────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!micGranted || !analyserRef.current) return;
-    const data = new Uint8Array(analyserRef.current.frequencyBinCount);
+    
+    // Auto resume suspended AudioContext
+    if (audioCtxRef.current && audioCtxRef.current.state === "suspended") {
+      audioCtxRef.current.resume().catch(() => {});
+    }
+
+    const analyser = analyserRef.current;
+    const timeData = new Uint8Array(analyser.fftSize);
+
     const tick = () => {
       if (analyserRef.current) {
-        analyserRef.current.getByteFrequencyData(data);
-        const avg = data.reduce((a, b) => a + b, 0) / data.length;
-        setMicLevel(Math.min(100, Math.round(avg * 2.5)));
+        analyserRef.current.getByteTimeDomainData(timeData);
+        let sumSquares = 0;
+        for (let i = 0; i < timeData.length; i++) {
+          const norm = (timeData[i] - 128) / 128;
+          sumSquares += norm * norm;
+        }
+        const rms = Math.sqrt(sumSquares / timeData.length);
+        // Map RMS volume to 0-100% with high speech sensitivity
+        const rawPct = Math.round(rms * 450);
+        const volumePct = Math.min(100, Math.max(0, rawPct));
+        setMicLevel(volumePct);
       }
       micAnimRef.current = requestAnimationFrame(tick);
     };
+
     micAnimRef.current = requestAnimationFrame(tick);
     return () => { if (micAnimRef.current) cancelAnimationFrame(micAnimRef.current); };
   }, [micGranted]);
@@ -507,14 +524,14 @@ export default function MockTestQuiz({ selectedRoleId, roleName, onQuizComplete 
   }, [testStarted, quizFinished, retakeModalReason, triggerForcedRetake]);
 
   // ─────────────────────────────────────────────────────────────────
-  // AI Eye-Tracking & Gaze Direction Analysis Engine
+  // Real Computer Vision AI Eye-Tracking Engine
   // ─────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!testStarted || quizFinished || retakeModalReason) return;
 
     const interval = setInterval(() => {
       const canvas = eyeCanvasRef.current;
-      const video = pipVideoRef.current;
+      const video = pipVideoRef.current || videoPreviewRef.current;
 
       let detectedGaze: "CENTER" | "LEFT" | "RIGHT" | "UP" | "DOWN" = "CENTER";
       let offset = { x: 0, y: 0 };
@@ -522,39 +539,62 @@ export default function MockTestQuiz({ selectedRoleId, roleName, onQuizComplete 
       if (video && video.videoWidth > 0 && canvas) {
         const ctx = canvas.getContext("2d", { willReadFrequently: true });
         if (ctx) {
-          ctx.drawImage(video, 0, 0, 160, 120);
           try {
-            const leftData = ctx.getImageData(40, 30, 35, 30).data;
-            const rightData = ctx.getImageData(85, 30, 35, 30).data;
-            const topData = ctx.getImageData(60, 20, 40, 20).data;
-            const bottomData = ctx.getImageData(60, 45, 40, 20).data;
+            ctx.drawImage(video, 0, 0, 160, 120);
+            const frame = ctx.getImageData(0, 0, 160, 120);
+            const data = frame.data;
 
-            const calcAvgLum = (data: Uint8ClampedArray) => {
-              let sum = 0;
-              for (let i = 0; i < data.length; i += 4) {
-                sum += (data[i] + data[i + 1] + data[i + 2]) / 3;
+            // Computer Vision Dark-Cluster Pupil Centroid Analysis
+            const findDarkCentroid = (minX: number, maxX: number, minY: number, maxY: number) => {
+              let minB = 255;
+              for (let y = minY; y < maxY; y++) {
+                for (let x = minX; x < maxX; x++) {
+                  const i = (y * 160 + x) * 4;
+                  const b = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                  if (b < minB) minB = b;
+                }
               }
-              return sum / (data.length / 4);
+
+              let sumX = 0, sumY = 0, count = 0;
+              const thresh = minB + 22; // Dark pupil pixel threshold
+              for (let y = minY; y < maxY; y++) {
+                for (let x = minX; x < maxX; x++) {
+                  const i = (y * 160 + x) * 4;
+                  const b = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                  if (b <= thresh) {
+                    sumX += x;
+                    sumY += y;
+                    count++;
+                  }
+                }
+              }
+
+              const centerX = (minX + maxX) / 2;
+              const centerY = (minY + maxY) / 2;
+              return {
+                dx: count > 0 ? (sumX / count) - centerX : 0,
+                dy: count > 0 ? (sumY / count) - centerY : 0,
+              };
             };
 
-            const leftLum = calcAvgLum(leftData);
-            const rightLum = calcAvgLum(rightData);
-            const topLum = calcAvgLum(topData);
-            const bottomLum = calcAvgLum(bottomData);
+            // Left eye region (30..70, 30..60), Right eye region (90..130, 30..60)
+            const leftEye = findDarkCentroid(30, 70, 30, 60);
+            const rightEye = findDarkCentroid(90, 130, 30, 60);
 
-            const horizontalDiff = rightLum - leftLum;
-            const verticalDiff = bottomLum - topLum;
+            const shiftX = (leftEye.dx + rightEye.dx) / 2;
+            const shiftY = (leftEye.dy + rightEye.dy) / 2;
 
-            if (horizontalDiff > 18) {
+            // Horizontal & Vertical Gaze thresholding
+            if (shiftX < -4.2) {
+              detectedGaze = "RIGHT"; // Mirrored feed
+              offset = { x: 14, y: 0 };
+            } else if (shiftX > 4.2) {
               detectedGaze = "LEFT";
               offset = { x: -14, y: 0 };
-            } else if (horizontalDiff < -18) {
-              detectedGaze = "RIGHT";
-              offset = { x: 14, y: 0 };
-            } else if (verticalDiff > 20) {
+            } else if (shiftY < -4.0) {
               detectedGaze = "UP";
               offset = { x: 0, y: -10 };
-            } else if (verticalDiff < -20) {
+            } else if (shiftY > 4.0) {
               detectedGaze = "DOWN";
               offset = { x: 0, y: 10 };
             } else {
@@ -916,101 +956,110 @@ export default function MockTestQuiz({ selectedRoleId, roleName, onQuizComplete 
             <span><span className="text-zinc-400">Questions: </span><span className="font-black text-zinc-100 bg-zinc-850 px-2 py-0.5 rounded border border-zinc-700">{questions.length}</span></span>
           </div>
 
-          {/* Permission Cards */}
-          <div className="grid grid-cols-2 gap-4">
-            {/* Camera */}
-            <div className={`p-4.5 rounded-2xl border space-y-3.5 transition-all ${cameraGranted ? "border-emerald-500/40 bg-emerald-950/15 shadow-[0_0_15px_rgba(16,185,129,0.1)]" : "border-zinc-750 border-zinc-700/60 bg-zinc-950/80"}`}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Camera className={`w-5 h-5 ${cameraGranted ? "text-emerald-400" : "text-zinc-300"}`} />
-                  <span className="text-xs font-bold text-zinc-200">Camera</span>
-                </div>
-                {cameraGranted ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-zinc-600" />}
-              </div>
-              {cameraGranted ? (
-                <div className="rounded-xl overflow-hidden border border-emerald-500/30 relative shadow-inner">
-                  {viewMode === "neural" || isSimulatedStream ? (
-                    <div className="w-full h-28 bg-zinc-950 flex flex-col items-center justify-center p-2 text-center relative overflow-hidden">
-                      <NeuralFaceCanvas pupilOffset={pupilOffset} gazeDirection={gazeDirection} className="h-28" />
-                    </div>
-                  ) : (
-                    <video
-                      ref={(el) => {
-                        videoPreviewRef.current = el;
-                        if (el && cameraStream) {
-                          setupVideoPlayback(el, cameraStream);
-                        }
-                      }}
-                      autoPlay
-                      muted
-                      playsInline
-                      className="w-full h-28 object-cover bg-black transform -scale-x-100"
-                    />
-                  )}
-                  <div className="absolute top-1 left-1 flex items-center gap-1 px-2 py-0.5 bg-black/80 rounded-md text-[9px] text-emerald-400 font-black">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    {viewMode === "neural" || isSimulatedStream ? "AI RADAR" : "LIVE WEBCAM"}
+          {/* Permission Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+            {/* Camera Card */}
+            <div className={`p-4 rounded-2xl border flex flex-col justify-between transition-all ${cameraGranted ? "border-emerald-500/40 bg-emerald-950/15 shadow-[0_0_15px_rgba(16,185,129,0.1)]" : "border-zinc-700/60 bg-zinc-950/80"}`}>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between pb-1 border-b border-zinc-800/60">
+                  <div className="flex items-center gap-2">
+                    <Camera className={`w-5 h-5 ${cameraGranted ? "text-emerald-400" : "text-zinc-300"}`} />
+                    <span className="text-xs font-bold text-zinc-200">Camera</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setViewMode((prev) => (prev === "camera" ? "neural" : "camera"))}
-                    className="absolute top-1 right-1 px-2 py-0.5 rounded-md bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700 text-[9px] text-zinc-200 font-bold cursor-pointer transition-colors flex items-center gap-1 shadow-sm"
-                  >
-                    <Zap className="w-2.5 h-2.5 text-amber-400" />
-                    {viewMode === "camera" ? "Use AI Radar" : "Use WebCam"}
-                  </button>
+                  {cameraGranted ? <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> : <XCircle className="w-4 h-4 text-zinc-600 shrink-0" />}
                 </div>
-              ) : (
-                <div className="space-y-2">
-                  <button
-                    onClick={requestCamera}
-                    className="silver-button-primary w-full py-2.5 rounded-xl text-zinc-950 text-xs font-black flex items-center justify-center gap-1.5"
-                  >
-                    <Camera className="w-3.5 h-3.5" /> Enable Camera
-                  </button>
-                  <button
-                    onClick={enableSimulatedProctor}
-                    className="w-full py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-[11px] font-bold transition-all cursor-pointer border border-zinc-700 flex items-center justify-center gap-1 shadow-sm"
-                  >
-                    <Zap className="w-3 h-3 text-amber-400" /> Use Simulated AI Camera
-                  </button>
-                </div>
-              )}
-              {cameraError && <p className="text-[10px] text-red-400 leading-tight">{cameraError}</p>}
+
+                {cameraGranted ? (
+                  <div className="rounded-xl overflow-hidden border border-emerald-500/30 relative shadow-inner bg-black">
+                    {viewMode === "neural" || isSimulatedStream ? (
+                      <div className="w-full h-32 bg-zinc-950 flex flex-col items-center justify-center relative overflow-hidden">
+                        <NeuralFaceCanvas pupilOffset={pupilOffset} gazeDirection={gazeDirection} className="h-32" />
+                      </div>
+                    ) : (
+                      <video
+                        ref={(el) => {
+                          videoPreviewRef.current = el;
+                          if (el && cameraStream) {
+                            setupVideoPlayback(el, cameraStream);
+                          }
+                        }}
+                        autoPlay
+                        muted
+                        playsInline
+                        className="w-full h-32 object-cover bg-black transform -scale-x-100"
+                      />
+                    )}
+                    <div className="absolute top-1.5 left-1.5 flex items-center gap-1 px-2 py-0.5 bg-black/80 rounded-md text-[9px] text-emerald-400 font-black">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      {viewMode === "neural" || isSimulatedStream ? "AI RADAR" : "LIVE WEBCAM"}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setViewMode((prev) => (prev === "camera" ? "neural" : "camera"))}
+                      className="absolute top-1.5 right-1.5 px-2 py-0.5 rounded-md bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700 text-[9px] text-zinc-200 font-bold cursor-pointer transition-colors flex items-center gap-1 shadow-sm"
+                    >
+                      <Zap className="w-2.5 h-2.5 text-amber-400" />
+                      {viewMode === "camera" ? "Use AI Radar" : "Use WebCam"}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2 py-2">
+                    <button
+                      onClick={requestCamera}
+                      className="silver-button-primary w-full py-2.5 rounded-xl text-zinc-950 text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                    >
+                      <Camera className="w-3.5 h-3.5" /> Enable Camera
+                    </button>
+                    <button
+                      onClick={enableSimulatedProctor}
+                      className="w-full py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-[11px] font-bold transition-all cursor-pointer border border-zinc-700 flex items-center justify-center gap-1 shadow-sm"
+                    >
+                      <Zap className="w-3 h-3 text-amber-400" /> Use Simulated AI Camera
+                    </button>
+                  </div>
+                )}
+              </div>
+              {cameraError && <p className="text-[10px] text-red-400 leading-tight mt-2">{cameraError}</p>}
             </div>
 
-            {/* Mic */}
-            <div className={`p-4.5 rounded-2xl border space-y-3.5 transition-all ${micGranted ? "border-emerald-500/40 bg-emerald-950/15 shadow-[0_0_15px_rgba(16,185,129,0.1)]" : "border-zinc-750 border-zinc-700/60 bg-zinc-950/80"}`}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Mic className={`w-5 h-5 ${micGranted ? "text-emerald-400" : "text-zinc-300"}`} />
-                  <span className="text-xs font-bold text-zinc-200">Microphone</span>
+            {/* Microphone Card */}
+            <div className={`p-4 rounded-2xl border flex flex-col justify-between transition-all ${micGranted ? "border-emerald-500/40 bg-emerald-950/15 shadow-[0_0_15px_rgba(16,185,129,0.1)]" : "border-zinc-700/60 bg-zinc-950/80"}`}>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between pb-1 border-b border-zinc-800/60">
+                  <div className="flex items-center gap-2">
+                    <Mic className={`w-5 h-5 ${micGranted ? "text-emerald-400" : "text-zinc-300"}`} />
+                    <span className="text-xs font-bold text-zinc-200">Microphone</span>
+                  </div>
+                  {micGranted ? <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> : <XCircle className="w-4 h-4 text-zinc-600 shrink-0" />}
                 </div>
-                {micGranted ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-zinc-600" />}
-              </div>
-              {micGranted ? (
-                <div className="p-3 bg-emerald-950/30 rounded-xl border border-emerald-500/20 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#10b981]" />
-                      <span className="text-[10px] text-emerald-300 font-bold">Live Audio Stream</span>
+
+                {micGranted ? (
+                  <div className="p-3 bg-emerald-950/30 rounded-xl border border-emerald-500/20 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#10b981]" />
+                        <span className="text-[11px] text-emerald-300 font-bold">Live Audio Stream</span>
+                      </div>
+                      <span className="text-[11px] font-mono text-emerald-300 font-black px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/30">{micLevel}% Vol</span>
                     </div>
-                    <span className="text-[10px] font-mono text-emerald-300 font-black">{micLevel}% Vol</span>
+
+                    <div className="flex items-center justify-between bg-zinc-950/90 px-3 py-2.5 rounded-xl border border-zinc-800">
+                      <span className="text-[10px] text-zinc-400 font-mono font-medium">Mic Input Level:</span>
+                      <MicBars />
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between bg-zinc-950/90 p-2 rounded-lg border border-zinc-800">
-                    <span className="text-[9px] text-zinc-400 font-mono">Mic Input Level:</span>
-                    <MicBars />
+                ) : (
+                  <div className="space-y-2 py-2">
+                    <button
+                      onClick={requestMic}
+                      className="silver-button-primary w-full py-2.5 rounded-xl text-zinc-950 text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                    >
+                      <Mic className="w-3.5 h-3.5" /> Enable Microphone
+                    </button>
                   </div>
-                </div>
-              ) : (
-                <button
-                  onClick={requestMic}
-                  className="silver-button-primary w-full py-2.5 rounded-xl text-zinc-950 text-xs font-black flex items-center justify-center gap-1.5"
-                >
-                  <Mic className="w-3.5 h-3.5" /> Enable Microphone
-                </button>
-              )}
-              {micError && <p className="text-[10px] text-red-400 leading-tight">{micError}</p>}
+                )}
+              </div>
+              {micError && <p className="text-[10px] text-red-400 leading-tight mt-2">{micError}</p>}
             </div>
           </div>
 

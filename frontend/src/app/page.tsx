@@ -582,11 +582,13 @@ function DashboardContent() {
 
       </div>
 
-      {/* Floating Mini AI Assistant Chatbot */}
-      <AIChatbot
-        selectedRole={selectedRole}
-        readinessPct={currentReadinessScore}
-      />
+      {/* Floating Mini AI Assistant Chatbot — Hidden during assessment/quiz */}
+      {activeTab !== "quiz" && (
+        <AIChatbot
+          selectedRole={selectedRole}
+          readinessPct={currentReadinessScore}
+        />
+      )}
 
     </div>
   );
