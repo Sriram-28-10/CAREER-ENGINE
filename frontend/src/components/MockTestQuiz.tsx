@@ -439,11 +439,19 @@ export default function MockTestQuiz({ selectedRoleId, roleName, onQuizComplete 
       setMicStream(stream);
       setMicGranted(true);
 
+      if (audioCtxRef.current && audioCtxRef.current.state !== "closed") {
+        try {
+          audioCtxRef.current.close().catch(() => {});
+        } catch {
+          // ignore closed error
+        }
+      }
+
       // Build Web Audio analyser
       const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
       const ctx = new AudioCtx();
       if (ctx.state === "suspended") {
-        await ctx.resume();
+        await ctx.resume().catch(() => {});
       }
       const analyser = ctx.createAnalyser();
       analyser.fftSize = 256;
@@ -760,14 +768,21 @@ export default function MockTestQuiz({ selectedRoleId, roleName, onQuizComplete 
   ];
 
   // ─────────────────────────────────────────────────────────────────
-  // Cleanup on unmount
+  // Cleanup on unmount / stream changes
   // ─────────────────────────────────────────────────────────────────
   useEffect(() => {
     return () => {
       cameraStream?.getTracks().forEach((t) => t.stop());
       micStream?.getTracks().forEach((t) => t.stop());
       if (micAnimRef.current) cancelAnimationFrame(micAnimRef.current);
-      audioCtxRef.current?.close();
+      if (audioCtxRef.current && audioCtxRef.current.state !== "closed") {
+        try {
+          audioCtxRef.current.close().catch(() => {});
+        } catch {
+          // ignore closed error
+        }
+        audioCtxRef.current = null;
+      }
     };
   }, [cameraStream, micStream]);
 
