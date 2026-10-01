@@ -111,27 +111,27 @@ export default function CounterfactualSimulator({
   const activeCount = Object.values(activeToggles).filter(Boolean).length;
 
   return (
-    <div className="glass-card p-6 border border-indigo-900/60 bg-gradient-to-br from-slate-900/90 via-slate-900 to-indigo-950/40 rounded-2xl shadow-xl space-y-4">
+    <div className="glass-card p-7 border border-zinc-700/60 bg-zinc-950/85 rounded-3xl shadow-[0_0_35px_rgba(255,255,255,0.06)] space-y-5">
       
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-        <div className="flex items-center gap-2">
-          <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
-            <Sliders className="w-5 h-5" />
+      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-zinc-900 text-zinc-100 border border-zinc-700/80 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+            <Sliders className="w-5 h-5 text-zinc-200" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+            <h2 className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-zinc-300 flex items-center gap-2">
               Counterfactual "What-If" Simulator
-              <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
+              <Sparkles className="w-4 h-4 text-zinc-200 animate-pulse" />
             </h2>
-            <p className="text-xs text-slate-400">Select hypothetical skill additions to project real-time score updates</p>
+            <p className="text-xs text-zinc-400 font-medium">Select hypothetical skill additions to project real-time score updates</p>
           </div>
         </div>
 
         {activeCount > 0 && (
           <button
             onClick={handleReset}
-            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center gap-1.5 transition-all"
+            className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-400 text-zinc-300 hover:text-white flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" /> Reset Toggles
           </button>
@@ -139,29 +139,29 @@ export default function CounterfactualSimulator({
       </div>
 
       {/* Interactive Toggle Pills */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
         {presets.map((item) => {
           const isActive = !!activeToggles[item.skill_name];
           return (
             <button
               key={item.skill_name}
               onClick={() => handleToggle(item.skill_name)}
-              className={`p-3.5 rounded-xl border text-left flex items-center justify-between transition-all duration-200 cursor-pointer ${
+              className={`p-4 rounded-2xl border text-left flex items-center justify-between transition-all duration-300 cursor-pointer ${
                 isActive
-                  ? "bg-indigo-600/20 border-indigo-500 text-indigo-200 shadow-md shadow-indigo-500/10 ring-1 ring-indigo-500/50"
-                  : "bg-slate-950/60 border-slate-800 hover:border-slate-700 text-slate-300"
+                  ? "bg-gradient-to-r from-zinc-850 via-zinc-800 to-zinc-850 border-zinc-300 text-white shadow-[0_0_20px_rgba(255,255,255,0.18)] ring-1 ring-white/40 scale-[1.02]"
+                  : "bg-zinc-900/60 border-zinc-750 border-zinc-700/60 hover:border-zinc-500 text-zinc-300 hover:text-white shadow-sm"
               }`}
             >
-              <div className="space-y-0.5">
-                <p className="text-xs font-semibold">{item.label}</p>
-                <p className="text-[11px] text-slate-400">Target Level: {item.boostLevel}%</p>
+              <div className="space-y-1">
+                <p className="text-xs font-bold">{item.label}</p>
+                <p className="text-[11px] text-zinc-400 font-medium">Target Level: <span className="text-zinc-200 font-bold">{item.boostLevel}%</span></p>
               </div>
               <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
-                  isActive ? "bg-indigo-500 text-white" : "bg-slate-800 text-slate-500"
+                className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
+                  isActive ? "bg-gradient-to-tr from-white to-zinc-300 text-zinc-950 font-black shadow-[0_0_10px_rgba(255,255,255,0.4)]" : "bg-zinc-800 text-zinc-500"
                 }`}
               >
-                {isActive ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : <Plus className="w-3.5 h-3.5" />}
+                {isActive ? <Check className="w-4 h-4 stroke-[3]" /> : <Plus className="w-4 h-4" />}
               </div>
             </button>
           );
@@ -169,8 +169,8 @@ export default function CounterfactualSimulator({
       </div>
 
       {isCalculating && (
-        <p className="text-xs text-indigo-400 animate-pulse font-medium text-center">
-          ⚡ Recalculating readiness twin projections & ROI path...
+        <p className="text-xs text-zinc-300 animate-pulse font-bold text-center">
+          ⚡ Recalculating Career Engine projections & ROI path...
         </p>
       )}
 

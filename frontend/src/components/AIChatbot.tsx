@@ -25,7 +25,7 @@ export default function AIChatbot({ selectedRole, readinessPct }: AIChatbotProps
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: "bot",
-      text: "👋 Hi! I'm your SCORPIUS Mini AI Assistant. Ask me anything about improving your career readiness score, clearing job blockers, or learning paths!"
+      text: "👋 Hi! I'm your Career Engine AI Assistant. Ask me anything about improving your career readiness score, clearing job blockers, or learning paths!"
     }
   ]);
   const [input, setInput] = useState("");
@@ -67,8 +67,8 @@ export default function AIChatbot({ selectedRole, readinessPct }: AIChatbotProps
       console.warn("Fallback chatbot reply:", err);
       // Smart Fallback
       let reply = `To reach 85%+ readiness for ${selectedRole.replace("_", " ")}, focus on closing your highest ROI blocker skill first! Check the Minimum Path widget above.`;
-      if (text.toLowerCase().includes("scorpius") || text.toLowerCase().includes("team")) {
-        reply = "🚀 Created & Designed with pride by **Team SCORPIUS**!";
+      if (text.toLowerCase().includes("career engine") || text.toLowerCase().includes("team") || text.toLowerCase().includes("who")) {
+        reply = "🚀 Created & Designed with pride by **Career Engine**!";
       }
       setMessages((prev) => [...prev, { sender: "bot", text: reply }]);
     } finally {
@@ -83,42 +83,44 @@ export default function AIChatbot({ selectedRole, readinessPct }: AIChatbotProps
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="relative p-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white shadow-2xl shadow-indigo-500/40 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer flex items-center gap-3 border border-indigo-400/30 group"
+          className="relative p-4 rounded-2xl bg-gradient-to-r from-white via-slate-100 to-zinc-300 text-zinc-950 shadow-[0_0_30px_rgba(255,255,255,0.35)] hover:shadow-[0_0_45px_rgba(255,255,255,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer flex items-center gap-3 border border-white/90 group"
         >
           <div className="relative">
-            <Bot className="w-6 h-6 animate-bounce" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-slate-900 animate-pulse" />
+            <Bot className="w-6 h-6 animate-bounce text-zinc-950" />
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-zinc-950 animate-pulse shadow-[0_0_8px_#10b981]" />
           </div>
-          <span className="font-bold text-xs pr-1 hidden sm:inline">
-            Ask SCORPIUS AI
+          <span className="font-black text-xs pr-1 hidden sm:inline text-zinc-950 tracking-wide">
+            Ask Career Engine AI
           </span>
         </button>
       )}
 
       {/* Floating Chat Box Window */}
       {isOpen && (
-        <div className="w-[360px] sm:w-[400px] h-[520px] bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
+        <div className="w-[360px] sm:w-[400px] h-[520px] bg-zinc-950/95 backdrop-blur-2xl border border-zinc-700/80 rounded-3xl shadow-[0_0_50px_rgba(255,255,255,0.12)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
           
-          {/* Top Bar */}
-          <div className="px-5 py-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+          {/* Top Bar with Specular Glow */}
+          <div className="px-5 py-3.5 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border-b border-zinc-800 flex items-center justify-between relative">
+            <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+            
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
-                <Bot className="w-5 h-5" />
+              <div className="p-2 rounded-xl bg-zinc-900 text-zinc-100 border border-zinc-700 shadow-[0_0_12px_rgba(255,255,255,0.1)]">
+                <Bot className="w-5 h-5 text-zinc-200" />
               </div>
               <div>
-                <h3 className="font-bold text-slate-100 text-sm flex items-center gap-1.5">
-                  SCORPIUS AI Assistant
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <h3 className="font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-zinc-300 text-sm flex items-center gap-1.5">
+                  Career Engine AI Assistant
+                  <Sparkles className="w-3.5 h-3.5 text-zinc-200 animate-pulse" />
                 </h3>
-                <p className="text-[10px] text-emerald-400 flex items-center gap-1">
-                  ● Online • Team SCORPIUS Engine
+                <p className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
+                  ● Online • Neural Matrix Active
                 </p>
               </div>
             </div>
 
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-all cursor-pointer"
+              className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all cursor-pointer"
             >
               <ChevronDown className="w-5 h-5" />
             </button>
@@ -136,18 +138,18 @@ export default function AIChatbot({ selectedRole, readinessPct }: AIChatbotProps
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
                     m.sender === "user"
-                      ? "bg-indigo-600 text-white"
-                      : "bg-slate-800 text-indigo-400 border border-indigo-500/30"
+                      ? "bg-gradient-to-tr from-white to-zinc-300 text-zinc-950 font-black shadow-sm"
+                      : "bg-zinc-900 text-zinc-200 border border-zinc-700 shadow-sm"
                   }`}
                 >
-                  {m.sender === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+                  {m.sender === "user" ? <User className="w-4 h-4 text-zinc-950" /> : <Bot className="w-4 h-4 text-zinc-200" />}
                 </div>
 
                 <div
                   className={`p-3 rounded-2xl max-w-[80%] leading-relaxed ${
                     m.sender === "user"
-                      ? "bg-indigo-600 text-white rounded-tr-none"
-                      : "bg-slate-950 text-slate-200 border border-slate-800 rounded-tl-none"
+                      ? "bg-gradient-to-r from-white via-slate-100 to-zinc-200 text-zinc-950 font-bold rounded-tr-none shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+                      : "bg-zinc-900/90 text-zinc-200 border border-zinc-750 border-zinc-700/60 rounded-tl-none font-medium shadow-sm"
                   }`}
                 >
                   {m.text}
@@ -156,21 +158,21 @@ export default function AIChatbot({ selectedRole, readinessPct }: AIChatbotProps
             ))}
 
             {isTyping && (
-              <div className="flex items-center gap-2 text-indigo-400 text-xs italic">
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>SCORPIUS AI is thinking...</span>
+              <div className="flex items-center gap-2 text-zinc-400 text-xs italic font-medium">
+                <Loader2 className="w-4 h-4 animate-spin text-zinc-200" />
+                <span>Career Engine AI is calculating...</span>
               </div>
             )}
             <div ref={chatBottomRef} />
           </div>
 
           {/* Preset Suggestion Chips */}
-          <div className="px-3 py-2 bg-slate-950/60 border-t border-slate-800/80 flex gap-1.5 overflow-x-auto no-scrollbar">
+          <div className="px-3 py-2 bg-zinc-950 border-t border-zinc-850 border-zinc-800/80 flex gap-1.5 overflow-x-auto no-scrollbar">
             {PRESET_PROMPTS.map((prompt, i) => (
               <button
                 key={i}
                 onClick={() => handleSend(prompt)}
-                className="whitespace-nowrap px-2.5 py-1 rounded-full text-[10px] font-medium bg-slate-800 hover:bg-indigo-600/30 hover:border-indigo-500/50 text-slate-300 border border-slate-700 transition-all cursor-pointer shrink-0"
+                className="whitespace-nowrap px-3 py-1.5 rounded-full text-[10px] font-bold bg-zinc-900 hover:bg-zinc-800 hover:border-zinc-400 text-zinc-300 hover:text-white border border-zinc-700/80 transition-all cursor-pointer shrink-0 shadow-sm"
               >
                 {prompt}
               </button>
@@ -178,19 +180,19 @@ export default function AIChatbot({ selectedRole, readinessPct }: AIChatbotProps
           </div>
 
           {/* Input Box */}
-          <div className="p-3 bg-slate-950 border-t border-slate-800 flex items-center gap-2">
+          <div className="p-3 bg-zinc-950 border-t border-zinc-800 flex items-center gap-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              placeholder="Ask SCORPIUS AI career questions..."
-              className="flex-1 bg-slate-900 border border-slate-800 focus:border-indigo-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none transition-all"
+              placeholder="Ask Career Engine AI career questions..."
+              className="flex-1 bg-zinc-900/90 border border-zinc-750 border-zinc-700/80 focus:border-zinc-300 rounded-xl px-3.5 py-2.5 text-xs text-zinc-100 focus:outline-none transition-all placeholder:text-zinc-500 shadow-inner"
             />
             <button
               onClick={() => handleSend()}
               disabled={!input.trim()}
-              className="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-bold transition-all cursor-pointer shadow-md shadow-indigo-500/20"
+              className="silver-button-primary p-2.5 rounded-xl disabled:opacity-40 text-zinc-950 font-bold transition-all cursor-pointer"
             >
               <Send className="w-4 h-4" />
             </button>

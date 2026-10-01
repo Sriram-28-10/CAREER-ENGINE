@@ -19,7 +19,7 @@ const ACCOUNT_TYPES: { type: AccountType; label: string; desc: string; icon: Rea
     label: "Student",
     desc: "College students & fresh graduates seeking internships and entry-level roles.",
     icon: <GraduationCap className="w-7 h-7" />,
-    color: "indigo",
+    color: "silver",
   },
   {
     type: "company",
@@ -105,39 +105,39 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4 overflow-hidden select-none">
+    <div className="relative min-h-screen bg-[#03060c] text-zinc-100 flex items-center justify-center p-4 overflow-hidden select-none">
       {/* 3D constellation animation background */}
       <ThreeBackground />
 
       {/* Login Container */}
-      <div className="relative z-10 w-full max-w-lg p-8 bg-slate-900/80 border border-slate-800/80 backdrop-blur-md rounded-3xl shadow-2xl space-y-6">
+      <div className="relative z-10 w-full max-w-lg p-8 bg-zinc-950/85 border border-zinc-800/90 backdrop-blur-md rounded-3xl shadow-2xl shadow-black/80 space-y-6">
 
         {/* Brand/Team Logo Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex p-3 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-indigo-700 text-white shadow-xl shadow-indigo-500/20">
+          <div className="inline-flex p-3 rounded-2xl bg-gradient-to-tr from-zinc-100 via-slate-200 to-zinc-400 text-zinc-950 shadow-xl shadow-white/10">
             <Brain className="w-8 h-8" />
           </div>
           <div>
             <h2 className="text-2xl font-black text-white flex items-center justify-center gap-1.5">
-              Career Readiness Twin
+              Career Engine
             </h2>
-            <p className="text-xs text-indigo-400 font-bold tracking-wider uppercase flex items-center justify-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-              Engineered by Team SCORPIUS
+            <p className="text-xs text-zinc-400 font-bold tracking-wider uppercase flex items-center justify-center gap-1">
+              <Sparkles className="w-3.5 h-3.5 text-zinc-300 animate-pulse" />
+              Engineered by Career Engine AI
             </p>
           </div>
         </div>
 
         {/* Step indicator */}
         <div className="flex items-center justify-center gap-2">
-          <div className={`w-8 h-1 rounded-full transition-all ${step >= 1 ? "bg-indigo-500" : "bg-slate-700"}`} />
-          <div className={`w-8 h-1 rounded-full transition-all ${step >= 2 ? "bg-indigo-500" : "bg-slate-700"}`} />
+          <div className={`w-8 h-1 rounded-full transition-all ${step >= 1 ? "bg-zinc-200 shadow-sm shadow-white/50" : "bg-zinc-800"}`} />
+          <div className={`w-8 h-1 rounded-full transition-all ${step >= 2 ? "bg-zinc-200 shadow-sm shadow-white/50" : "bg-zinc-800"}`} />
         </div>
 
         {/* ─── STEP 1: Account Type Selection ─── */}
         {step === 1 && (
           <div className="space-y-4 animate-in fade-in duration-300">
-            <p className="text-center text-xs text-slate-400 font-semibold uppercase tracking-widest">
+            <p className="text-center text-xs text-zinc-400 font-semibold uppercase tracking-widest">
               Select Account Type
             </p>
 
@@ -150,22 +150,22 @@ export default function LoginPage() {
                     onClick={() => setSelectedAccountType(acct.type)}
                     className={`relative p-4 rounded-xl border-2 text-center space-y-2.5 transition-all cursor-pointer ${
                       isSelected
-                        ? "border-indigo-500 bg-indigo-500/10 shadow-lg shadow-indigo-500/10"
-                        : "border-slate-800 bg-slate-950/60 hover:border-slate-700 hover:bg-slate-900"
+                        ? "border-zinc-300 bg-zinc-900/90 shadow-lg shadow-white/5"
+                        : "border-zinc-800 bg-zinc-950/60 hover:border-zinc-600 hover:bg-zinc-900/50"
                     }`}
                   >
                     {isSelected && (
-                      <CheckCircle2 className="absolute top-2 right-2 w-4 h-4 text-indigo-400" />
+                      <CheckCircle2 className="absolute top-2 right-2 w-4 h-4 text-zinc-200" />
                     )}
                     <div className={`mx-auto w-12 h-12 rounded-xl flex items-center justify-center ${
-                      isSelected ? "bg-indigo-500/20 text-indigo-400" : "bg-slate-800 text-slate-400"
+                      isSelected ? "bg-zinc-800 text-zinc-100" : "bg-zinc-900 text-zinc-400"
                     }`}>
                       {acct.icon}
                     </div>
-                    <p className={`text-xs font-bold ${isSelected ? "text-indigo-300" : "text-slate-300"}`}>
+                    <p className={`text-xs font-bold ${isSelected ? "text-zinc-100" : "text-zinc-300"}`}>
                       {acct.label}
                     </p>
-                    <p className="text-[9px] text-slate-500 leading-snug">{acct.desc}</p>
+                    <p className="text-[9px] text-zinc-500 leading-snug">{acct.desc}</p>
                   </button>
                 );
               })}
@@ -176,8 +176,8 @@ export default function LoginPage() {
               disabled={!selectedAccountType}
               className={`w-full py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 selectedAccountType
-                  ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20"
-                  : "bg-slate-800 text-slate-500 cursor-not-allowed"
+                  ? "bg-gradient-to-r from-zinc-100 via-slate-200 to-zinc-300 hover:from-white hover:to-zinc-200 text-zinc-950 shadow-lg shadow-white/10"
+                  : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
               }`}
             >
               Continue
@@ -192,7 +192,7 @@ export default function LoginPage() {
             {/* Back button */}
             <button
               onClick={() => setStep(1)}
-              className="flex items-center gap-1 text-xs text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
+              className="flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to account type
@@ -200,20 +200,20 @@ export default function LoginPage() {
 
             {/* Selected account badge */}
             <div className="text-center">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700 text-zinc-200 text-xs font-bold shadow-sm">
+                <CheckCircle2 className="w-3.5 h-3.5 text-zinc-300" />
                 {ACCOUNT_TYPES.find(a => a.type === selectedAccountType)?.label} Account
               </span>
             </div>
 
             {/* Mode Selector */}
-            <div className="grid grid-cols-2 p-1 bg-slate-950 rounded-xl border border-slate-800">
+            <div className="grid grid-cols-2 p-1 bg-zinc-950 rounded-xl border border-zinc-800">
               <button
                 onClick={() => setShowRealOAuth(false)}
                 className={`py-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
                   !showRealOAuth
-                    ? "bg-slate-800 text-slate-100 shadow"
-                    : "text-slate-400 hover:text-slate-200"
+                    ? "bg-zinc-800 text-zinc-100 shadow"
+                    : "text-zinc-400 hover:text-zinc-200"
                 }`}
               >
                 Simulated Login
@@ -222,8 +222,8 @@ export default function LoginPage() {
                 onClick={() => setShowRealOAuth(true)}
                 className={`py-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
                   showRealOAuth
-                    ? "bg-slate-800 text-slate-100 shadow"
-                    : "text-slate-400 hover:text-slate-200"
+                    ? "bg-zinc-800 text-zinc-100 shadow"
+                    : "text-zinc-400 hover:text-zinc-200"
                 }`}
               >
                 Real OAuth Login
@@ -232,8 +232,8 @@ export default function LoginPage() {
 
             {/* Mode Info Messages */}
             {showRealOAuth ? (
-              <div className="p-3.5 bg-indigo-950/30 border border-indigo-500/20 text-indigo-300 rounded-xl text-xs flex gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+              <div className="p-3.5 bg-zinc-900/90 border border-zinc-700/80 text-zinc-300 rounded-xl text-xs flex gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-zinc-300" />
                 <p>
                   Connects directly to Gmail (Google), GitHub, or LinkedIn API portals using environment secrets configured in <strong>.env.local</strong>.
                 </p>
@@ -253,7 +253,7 @@ export default function LoginPage() {
               <button
                 onClick={() => showRealOAuth ? handleRealOAuthLogin("google") : handleSimulatedLogin("Google")}
                 disabled={!!isAuthenticating}
-                className="w-full p-3.5 rounded-xl border border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-indigo-500/50 text-slate-200 font-semibold flex items-center justify-center gap-3 transition-all cursor-pointer text-xs"
+                className="w-full p-3.5 rounded-xl border border-zinc-800 bg-zinc-950/90 hover:bg-zinc-900 hover:border-zinc-500 text-zinc-200 font-semibold flex items-center justify-center gap-3 transition-all cursor-pointer text-xs shadow-sm"
               >
                 <Mail className="w-4 h-4 text-red-400" />
                 <span>
@@ -267,7 +267,7 @@ export default function LoginPage() {
               <button
                 onClick={() => showRealOAuth ? handleRealOAuthLogin("linkedin") : handleSimulatedLogin("LinkedIn")}
                 disabled={!!isAuthenticating}
-                className="w-full p-3.5 rounded-xl border border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-blue-500/50 text-slate-200 font-semibold flex items-center justify-center gap-3 transition-all cursor-pointer text-xs"
+                className="w-full p-3.5 rounded-xl border border-zinc-800 bg-zinc-950/90 hover:bg-zinc-900 hover:border-zinc-500 text-zinc-200 font-semibold flex items-center justify-center gap-3 transition-all cursor-pointer text-xs shadow-sm"
               >
                 <Linkedin className="w-4 h-4 text-blue-400" />
                 <span>
@@ -281,9 +281,9 @@ export default function LoginPage() {
               <button
                 onClick={() => showRealOAuth ? handleRealOAuthLogin("github") : handleSimulatedLogin("GitHub")}
                 disabled={!!isAuthenticating}
-                className="w-full p-3.5 rounded-xl border border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-purple-500/50 text-slate-200 font-semibold flex items-center justify-center gap-3 transition-all cursor-pointer text-xs"
+                className="w-full p-3.5 rounded-xl border border-zinc-800 bg-zinc-950/90 hover:bg-zinc-900 hover:border-zinc-500 text-zinc-200 font-semibold flex items-center justify-center gap-3 transition-all cursor-pointer text-xs shadow-sm"
               >
-                <Github className="w-4 h-4 text-purple-400" />
+                <Github className="w-4 h-4 text-zinc-300" />
                 <span>
                   {isAuthenticating === "github" || isAuthenticating === "GitHub"
                     ? "Connecting GitHub Developer Profile..."
@@ -295,9 +295,9 @@ export default function LoginPage() {
         )}
 
         {/* Footer Brand info */}
-        <div className="text-center text-[10px] text-slate-500 flex items-center justify-center gap-1 border-t border-slate-800/80 pt-4">
+        <div className="text-center text-[10px] text-zinc-500 flex items-center justify-center gap-1 border-t border-zinc-800/80 pt-4">
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Sync Twin Dashboard • Created by <strong>Team SCORPIUS</strong></span>
+          <span>Career Engine Dashboard • Powered by <strong>Career Engine</strong></span>
         </div>
 
       </div>

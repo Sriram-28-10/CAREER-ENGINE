@@ -12,14 +12,14 @@ interface IntroHeroProps {
 
 const STORY_STEPS = [
   {
-    icon: <FileSearch className="w-10 h-10 text-indigo-400" />,
+    icon: <FileSearch className="w-10 h-10 text-zinc-200" />,
     badge: "01 · THE PROBLEM",
-    badgeColor: "bg-indigo-500/10 text-indigo-400 border-indigo-500/30",
-    glowColor: "from-indigo-500/20 via-indigo-600/10 to-transparent",
+    badgeColor: "bg-zinc-800/80 text-zinc-200 border-zinc-600/50",
+    glowColor: "from-zinc-500/15 via-slate-600/10 to-transparent",
     title: "You Have a Resume. But Do You Know Your True Standing?",
     subtitle: "Most candidates guess their readiness or rely on generic job defaults.",
     details: "Your resume contains valuable experience, but matching it against real engineering thresholds manually is nearly impossible.",
-    highlight: "SCORPIUS AI changes that in seconds.",
+    highlight: "Career Engine AI changes that in seconds.",
   },
   {
     icon: <Bot className="w-10 h-10 text-emerald-400" />,
@@ -32,11 +32,11 @@ const STORY_STEPS = [
     highlight: "No generic role defaults. 100% personalized analysis.",
   },
   {
-    icon: <TrendingUp className="w-10 h-10 text-purple-400" />,
-    badge: "03 · THE TWIN ROADMAP",
-    badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/30",
-    glowColor: "from-purple-500/20 via-purple-600/10 to-transparent",
-    title: "Your Personal Career Twin & Job Blockers Emerge",
+    icon: <TrendingUp className="w-10 h-10 text-zinc-200" />,
+    badge: "03 · THE CAREER ROADMAP",
+    badgeColor: "bg-zinc-800/80 text-zinc-200 border-zinc-600/50",
+    glowColor: "from-zinc-500/15 via-slate-600/10 to-transparent",
+    title: "Your Personal Career Engine & Job Blockers Emerge",
     subtitle: "Identify exact skill gaps before recruiters do.",
     details: "Discover your Minimum Path to Job, simulate skill boosts, and unlock high-ROI learning recommendations tailored to your role.",
     highlight: "Clear, actionable feedback instead of confusing numbers.",
@@ -47,19 +47,19 @@ const STORY_STEPS = [
     badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/30",
     glowColor: "from-amber-500/20 via-amber-600/10 to-transparent",
     title: "Practice Real Interviews with AI Speech Scoring",
-    subtitle: "Live camera/mic proctoring with tab-switch detection.",
-    details: "Test your knowledge under real exam conditions with automated anti-cheat monitoring and instant AI transcript evaluations.",
+    subtitle: "Live camera/mic proctoring with eye-tracking analysis.",
+    details: "Test your knowledge under real exam conditions with automated proctoring and instant AI transcript evaluations.",
     highlight: "Build interview confidence with instant AI feedback.",
   },
   {
-    icon: <ShieldCheck className="w-10 h-10 text-cyan-400" />,
+    icon: <ShieldCheck className="w-10 h-10 text-zinc-200" />,
     badge: "05 · THE DESTINATION",
-    badgeColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
-    glowColor: "from-cyan-500/20 via-cyan-600/10 to-transparent",
+    badgeColor: "bg-zinc-800/80 text-zinc-200 border-zinc-600/50",
+    glowColor: "from-zinc-500/15 via-slate-600/10 to-transparent",
     title: "Walk In Confident. Land Your Dream Role.",
     subtitle: "From unknowledgeable beginner to industry-ready candidate.",
-    details: "Whether you are a fresh graduate, candidate switcher, or experienced developer, your Career Twin guides you every step.",
-    highlight: "Ready to launch? Your AI Twin is waiting.",
+    details: "Whether you are a fresh graduate, candidate switcher, or experienced developer, Career Engine guides you every step.",
+    highlight: "Ready to launch? Your Career Engine is waiting.",
   },
 ];
 
@@ -123,31 +123,31 @@ export default function IntroHero({ onEnter }: IntroHeroProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-slate-950 flex flex-col justify-between p-4 sm:p-6 overflow-hidden select-none transition-all duration-500 ${
+      className={`fixed inset-0 z-50 bg-[#03060c] flex flex-col justify-between p-4 sm:p-6 overflow-hidden select-none transition-all duration-500 ${
         fadeOut ? "opacity-0 scale-95" : "opacity-100"
       }`}
     >
       {/* Dynamic 3D Ambient Lighting Canvas */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-indigo-600/20 via-purple-600/10 to-transparent rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-t from-indigo-600/20 via-emerald-600/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1.5s" }} />
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-zinc-500/15 via-slate-600/10 to-transparent rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-t from-zinc-400/15 via-slate-500/10 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1.5s" }} />
       </div>
 
       {/* TOP BAR: Logo Header & Skip */}
       <header className="relative z-10 w-full max-w-5xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/25">
+          <div className="p-2.5 rounded-xl bg-gradient-to-tr from-zinc-100 via-slate-200 to-zinc-400 text-zinc-950 shadow-lg shadow-white/10">
             <Brain className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-base font-black text-white tracking-wider uppercase flex items-center gap-2">
-              SCORPIUS TWIN
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 font-bold">
+            <h1 className="text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-zinc-400 tracking-wider uppercase flex items-center gap-2">
+              CAREER ENGINE
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-200 border border-zinc-700 font-bold">
                 v3.0 AI
               </span>
             </h1>
-            <p className="text-[10px] text-slate-400 flex items-center gap-1 font-semibold">
-              <Sparkles className="w-3 h-3 text-amber-400 animate-pulse" />
+            <p className="text-[10px] text-zinc-400 flex items-center gap-1 font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-zinc-300 animate-pulse" />
               Interactive AI Career Guidance
             </p>
           </div>
@@ -156,7 +156,7 @@ export default function IntroHero({ onEnter }: IntroHeroProps) {
         {/* Skip button */}
         <button
           onClick={handleFinish}
-          className="text-xs font-bold text-slate-400 hover:text-slate-200 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-all cursor-pointer flex items-center gap-1"
+          className="text-xs font-bold text-zinc-400 hover:text-zinc-100 px-3 py-1.5 rounded-lg bg-zinc-900/80 border border-zinc-800 hover:border-zinc-600 transition-all cursor-pointer flex items-center gap-1 shadow-sm"
         >
           Skip Intro <ChevronRight className="w-3.5 h-3.5" />
         </button>
@@ -174,27 +174,30 @@ export default function IntroHero({ onEnter }: IntroHeroProps) {
         >
           <div
             ref={cardRef}
-            className="relative w-full p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl shadow-2xl transition-all duration-300 ease-out flex flex-col gap-6"
+            className="relative w-full p-6 sm:p-8 rounded-3xl bg-zinc-950/85 border border-zinc-700/80 backdrop-blur-xl shadow-[0_0_50px_rgba(255,255,255,0.08)] transition-all duration-300 ease-out flex flex-col gap-6"
             style={{
               transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) translateZ(10px)`,
               transformStyle: "preserve-3d",
             }}
           >
+            {/* Specular top highlight line */}
+            <div className="absolute top-0 left-10 right-10 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none rounded-full" />
+
             {/* Ambient inner glow gradient */}
-            <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${current.glowColor} pointer-events-none opacity-80`} />
+            <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${current.glowColor} pointer-events-none opacity-90`} />
 
             {/* Slide Header: Step Badge & Auto-Play Toggle */}
             <div className="relative z-10 flex items-center justify-between">
-              <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${current.badgeColor}`}>
+              <span className={`text-[10px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-full border shadow-sm ${current.badgeColor}`}>
                 {current.badge}
               </span>
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="text-[10px] font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1.5 bg-slate-950/60 px-2.5 py-1 rounded-full border border-slate-800 transition-all cursor-pointer"
+                className="text-[10px] font-black text-zinc-300 hover:text-white flex items-center gap-1.5 bg-zinc-900/90 px-3 py-1.5 rounded-full border border-zinc-700 hover:border-zinc-500 transition-all cursor-pointer shadow-[0_0_12px_rgba(255,255,255,0.05)]"
               >
                 {isPlaying ? (
                   <>
-                    <Pause className="w-3 h-3 text-indigo-400" /> Auto Playing
+                    <Pause className="w-3 h-3 text-zinc-200" /> Auto Playing
                   </>
                 ) : (
                   <>
@@ -208,30 +211,30 @@ export default function IntroHero({ onEnter }: IntroHeroProps) {
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
               
               {/* Icon Box with 3D Float */}
-              <div className="md:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-950/60 border border-slate-800 shadow-inner">
-                <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl animate-bounce" style={{ animationDuration: "3s" }}>
+              <div className="md:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-zinc-900/80 border border-zinc-700/80 shadow-[inset_0_0_20px_rgba(255,255,255,0.04)]">
+                <div className="p-5 rounded-2xl bg-gradient-to-tr from-zinc-950 via-zinc-900 to-zinc-950 border border-zinc-600/80 shadow-[0_0_25px_rgba(255,255,255,0.15)] animate-bounce" style={{ animationDuration: "3.5s" }}>
                   {current.icon}
                 </div>
-                <div className="mt-4 flex items-center gap-1 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
-                  <Zap className="w-3 h-3 text-amber-400" /> Step {activeStep + 1} of {STORY_STEPS.length}
+                <div className="mt-4 flex items-center gap-1.5 text-[10px] font-black text-zinc-300 uppercase tracking-wider">
+                  <Zap className="w-3.5 h-3.5 text-zinc-200 animate-pulse" /> Step {activeStep + 1} of {STORY_STEPS.length}
                 </div>
               </div>
 
               {/* Text Description Box */}
-              <div className="md:col-span-8 text-left space-y-3">
-                <h2 className="text-xl sm:text-2xl font-black text-white leading-tight tracking-tight">
+              <div className="md:col-span-8 text-left space-y-3.5">
+                <h2 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-zinc-300 leading-tight tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.25)]">
                   {current.title}
                 </h2>
-                <p className="text-xs sm:text-sm font-semibold text-indigo-300">
+                <p className="text-xs sm:text-sm font-bold text-zinc-200">
                   {current.subtitle}
                 </p>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-zinc-400 leading-relaxed font-normal">
                   {current.details}
                 </p>
 
                 {/* Highlight banner */}
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center gap-2 text-xs font-bold text-emerald-400">
-                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <div className="p-3.5 rounded-xl bg-gradient-to-r from-emerald-950/40 via-zinc-900/60 to-emerald-950/40 border border-emerald-500/30 flex items-center gap-2.5 text-xs font-bold text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
                   <span>{current.highlight}</span>
                 </div>
               </div>
@@ -239,15 +242,15 @@ export default function IntroHero({ onEnter }: IntroHeroProps) {
             </div>
 
             {/* Step Navigation Dots Bar */}
-            <div className="relative z-10 flex items-center justify-center gap-2 pt-2 border-t border-slate-800/80">
+            <div className="relative z-10 flex items-center justify-center gap-2.5 pt-2 border-t border-zinc-800/80">
               {STORY_STEPS.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => { setIsPlaying(false); setActiveStep(i); }}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                     i === activeStep
-                      ? "w-8 bg-indigo-500 shadow-lg shadow-indigo-500/50"
-                      : "w-2 bg-slate-800 hover:bg-slate-700"
+                      ? "w-10 bg-gradient-to-r from-white to-zinc-300 shadow-[0_0_15px_rgba(255,255,255,0.6)]"
+                      : "w-2.5 bg-zinc-800 hover:bg-zinc-600"
                   }`}
                   title={`Go to step ${i + 1}`}
                 />
@@ -265,10 +268,10 @@ export default function IntroHero({ onEnter }: IntroHeroProps) {
         <button
           onClick={handlePrev}
           disabled={activeStep === 0}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 border transition-all cursor-pointer ${
+          className={`px-5 py-2.5 rounded-xl text-xs font-black flex items-center gap-2 border transition-all cursor-pointer ${
             activeStep === 0
-              ? "opacity-30 border-slate-800 text-slate-600 cursor-not-allowed"
-              : "bg-slate-900 border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white"
+              ? "opacity-30 border-zinc-800 text-zinc-600 cursor-not-allowed"
+              : "bg-zinc-900/90 border-zinc-700 hover:border-zinc-400 text-zinc-300 hover:text-white shadow-[0_0_15px_rgba(255,255,255,0.05)]"
           }`}
         >
           <ArrowLeft className="w-4 h-4" /> Previous
@@ -279,7 +282,7 @@ export default function IntroHero({ onEnter }: IntroHeroProps) {
           {activeStep < STORY_STEPS.length - 1 ? (
             <button
               onClick={handleNext}
-              className="px-6 py-3 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 flex items-center gap-2 transition-all cursor-pointer"
+              className="px-6 py-3 rounded-xl text-xs font-black bg-zinc-900/90 hover:bg-zinc-800 text-zinc-100 hover:text-white border border-zinc-600 hover:border-zinc-400 shadow-[0_0_15px_rgba(255,255,255,0.08)] flex items-center gap-2 transition-all cursor-pointer"
             >
               Next Step <ArrowRight className="w-4 h-4" />
             </button>
@@ -288,7 +291,7 @@ export default function IntroHero({ onEnter }: IntroHeroProps) {
           {/* Primary Action CTA */}
           <button
             onClick={handleFinish}
-            className="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-xl shadow-indigo-500/30 flex items-center gap-2 transition-all hover:scale-105 cursor-pointer border border-indigo-400/30 animate-pulse"
+            className="silver-button-primary px-7 py-3 rounded-xl text-xs font-black uppercase tracking-wider text-zinc-950 flex items-center gap-2.5 hover:scale-105 transition-transform"
           >
             <Brain className="w-4 h-4" /> Start My Career Journey
           </button>

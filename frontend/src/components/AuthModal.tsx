@@ -47,25 +47,25 @@ export default function AuthModal({ user, onLogout }: AuthModalProps) {
   return (
     <div>
       {activeUser ? (
-        <div className="flex items-center gap-3 bg-slate-900/90 border border-emerald-500/30 px-3.5 py-1.5 rounded-xl shadow-lg animate-in fade-in duration-200">
+        <div className="flex items-center gap-3 bg-zinc-900/90 border border-zinc-700/80 px-3.5 py-1.5 rounded-xl shadow-lg shadow-white/5 animate-in fade-in duration-200">
           <img
             src={activeUser.avatar}
             alt={activeUser.name}
-            className="w-7 h-7 rounded-full bg-slate-800 border border-emerald-400"
+            className="w-7 h-7 rounded-full bg-zinc-800 border border-zinc-500"
           />
           <div className="text-left hidden sm:block">
-            <p className="text-xs font-bold text-slate-100 flex items-center gap-1">
+            <p className="text-xs font-bold text-zinc-100 flex items-center gap-1">
               {activeUser.name}
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             </p>
-            <p className="text-[10px] text-emerald-400 font-medium">
+            <p className="text-[10px] text-zinc-400 font-medium">
               Via {activeUser.provider}
             </p>
           </div>
           <button
             onClick={handleSignOut}
             title="Log Out / Sign Out"
-            className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-red-400 transition-colors ml-1 cursor-pointer"
+            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-red-400 transition-colors ml-1 cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
           </button>
@@ -73,9 +73,9 @@ export default function AuthModal({ user, onLogout }: AuthModalProps) {
       ) : (
         <button
           onClick={handleSignInRedirect}
-          className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25 flex items-center gap-2 transition-all cursor-pointer"
+          className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-zinc-100 via-slate-200 to-zinc-300 hover:from-white hover:to-zinc-200 text-zinc-950 shadow-lg shadow-white/10 flex items-center gap-2 transition-all cursor-pointer border border-white/40"
         >
-          <LogIn className="w-4 h-4" />
+          <LogIn className="w-4 h-4 text-zinc-950" />
           Connect Profile / Log In
         </button>
       )}

@@ -3,8 +3,8 @@ import "./globals.css";
 import SessionProviderWrapper from "@/components/SessionProviderWrapper";
 
 export const metadata: Metadata = {
-  title: "Career Readiness Twin | Dynamic AI Assessment",
-  description: "AI-Powered Skill Confidence Scoring, Job Blockers, ROI Minimum Learning Paths, and Counterfactual Simulations.",
+  title: "Career Engine | Dynamic AI Career Readiness Platform",
+  description: "AI-Powered Skill Confidence Scoring, Job Blockers, ROI Minimum Learning Paths, and Career Readiness Assessments by Career Engine.",
 };
 
 export default function RootLayout({

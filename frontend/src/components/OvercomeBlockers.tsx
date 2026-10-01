@@ -94,22 +94,24 @@ export default function OvercomeBlockers({ blockers }: OvercomeBlockersProps) {
   };
 
   return (
-    <div className="glass-card p-6 border border-slate-850 bg-slate-900/60 rounded-2xl space-y-6 shadow-xl">
-      <div className="flex items-center gap-2.5">
-        <div className="p-2 rounded-lg bg-red-500/10 text-red-400 border border-red-500/30">
+    <div className="glass-card p-6 border border-zinc-700/60 bg-zinc-950/85 rounded-3xl space-y-6 shadow-[0_0_35px_rgba(255,255,255,0.06)] h-full flex flex-col justify-between">
+      <div className="flex items-center gap-3 border-b border-zinc-800/80 pb-4">
+        <div className="p-2.5 rounded-xl bg-red-500/15 text-red-400 border border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
           <Lightbulb className="w-5 h-5 text-red-400 animate-pulse" />
         </div>
         <div>
-          <h3 className="text-lg font-extrabold text-white">Overcome Blockers</h3>
-          <p className="text-xs text-slate-400">Actionable roadmaps to resolve your job readiness skill gaps.</p>
+          <h3 className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-zinc-300">
+            Overcome Blockers
+          </h3>
+          <p className="text-xs text-zinc-400 font-medium">Actionable roadmaps to resolve your job readiness skill gaps.</p>
         </div>
       </div>
 
       {blockers.length === 0 ? (
-        <div className="p-4 bg-emerald-950/20 border border-emerald-500/20 rounded-xl text-center space-y-2">
-          <CheckCircle className="w-8 h-8 text-emerald-400 mx-auto" />
-          <p className="text-sm font-semibold text-slate-200">No Job Blockers Detected!</p>
-          <p className="text-xs text-slate-400">Your skill confidence meets or exceeds all target thresholds for this role.</p>
+        <div className="p-5 bg-emerald-950/30 border border-emerald-500/30 rounded-2xl text-center space-y-2.5 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+          <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto animate-pulse" />
+          <p className="text-sm font-bold text-zinc-100">No Job Blockers Detected!</p>
+          <p className="text-xs text-zinc-400 font-medium">Your skill confidence meets or exceeds all target thresholds for this role.</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -118,39 +120,39 @@ export default function OvercomeBlockers({ blockers }: OvercomeBlockersProps) {
             return (
               <div
                 key={idx}
-                className="p-4 rounded-xl border border-red-500/10 bg-slate-950/40 hover:border-red-500/25 transition-all space-y-3.5"
+                className="p-4.5 rounded-2xl border border-red-500/30 bg-gradient-to-r from-red-950/20 via-zinc-900/70 to-red-950/20 hover:border-red-500/50 transition-all space-y-3.5 shadow-[0_0_15px_rgba(239,68,68,0.08)] hover:shadow-[0_0_25px_rgba(239,68,68,0.18)]"
               >
                 {/* Header */}
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-red-400 flex items-center gap-2">
+                  <span className="text-sm font-black text-red-300 flex items-center gap-2">
                     🔴 {blocker.skill_name}
                   </span>
-                  <div className="text-[10px] font-mono bg-red-500/10 text-red-400 px-2.5 py-0.5 rounded-full border border-red-500/20">
+                  <div className="text-[10px] font-black font-mono bg-red-500/15 text-red-300 px-3 py-1 rounded-full border border-red-500/30 shadow-sm">
                     Confidence: {(blocker.candidate_level ?? 0).toFixed(0)}% / Target: {(blocker.required_level ?? 0).toFixed(0)}%
                   </div>
                 </div>
 
                 {/* Steps List */}
-                <ul className="space-y-2 text-xs text-slate-300 pl-2">
+                <ul className="space-y-2 text-xs text-zinc-300 pl-2">
                   {plan.steps.map((step, sIdx) => (
                     <li key={sIdx} className="flex items-start gap-2">
-                      <ChevronRight className="w-3.5 h-3.5 text-red-400 shrink-0 mt-0.5" />
-                      <span>{step}</span>
+                      <ChevronRight className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                      <span className="font-medium">{step}</span>
                     </li>
                   ))}
                 </ul>
 
                 {/* Recommended Study Material Link */}
-                <div className="flex items-center justify-between border-t border-slate-800/80 pt-3 text-[11px]">
-                  <span className="text-slate-400 font-medium">Recommended Resource:</span>
+                <div className="flex items-center justify-between border-t border-zinc-800/80 pt-3 text-[11px]">
+                  <span className="text-zinc-400 font-bold">Recommended Resource:</span>
                   <a
                     href={plan.resourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1 hover:underline cursor-pointer"
+                    className="text-zinc-100 hover:text-white font-bold flex items-center gap-1.5 hover:underline cursor-pointer bg-zinc-900/90 px-3 py-1 rounded-lg border border-zinc-700/80 hover:border-zinc-400 shadow-sm transition-all"
                   >
-                    {plan.resourceName}
-                    <ExternalLink className="w-3 h-3" />
+                    <span>{plan.resourceName}</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-zinc-300" />
                   </a>
                 </div>
               </div>

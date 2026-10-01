@@ -66,7 +66,7 @@ def test_chatbot_and_resources_endpoints():
     req = ChatbotRequest(user_message="How to increase my readiness score?", role_id="data_scientist")
     reply = chatbot_reply(req)
     assert "reply" in reply
-    assert reply["team"] == "Team SCORPIUS"
+    assert reply["team"] == "Career Engine"
 
     resources = get_resources("SQL Querying")
     assert "SQL Querying" in resources

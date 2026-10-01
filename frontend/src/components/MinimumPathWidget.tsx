@@ -32,12 +32,12 @@ interface MinimumPathWidgetProps {
 export default function MinimumPathWidget({ pathData }: MinimumPathWidgetProps) {
   if (!pathData || !pathData.learning_path || pathData.learning_path.length === 0) {
     return (
-      <div className="glass-card p-6 border border-slate-800 bg-slate-900/90 rounded-2xl shadow-xl">
+      <div className="glass-card p-6 border border-zinc-800 bg-zinc-950/80 rounded-2xl shadow-2xl shadow-black/50">
         <div className="flex items-center gap-3 text-emerald-400">
           <CheckCircle className="w-6 h-6" />
           <div>
-            <h3 className="font-bold text-slate-100">85%+ Job Readiness Benchmark Achieved!</h3>
-            <p className="text-xs text-slate-400">No additional minimum learning path steps required for this role.</p>
+            <h3 className="font-bold text-zinc-100">85%+ Job Readiness Benchmark Achieved!</h3>
+            <p className="text-xs text-zinc-400">No additional minimum learning path steps required for this role.</p>
           </div>
         </div>
       </div>
@@ -45,28 +45,30 @@ export default function MinimumPathWidget({ pathData }: MinimumPathWidgetProps) 
   }
 
   return (
-    <div className="glass-card p-6 border border-slate-800 bg-slate-900/90 rounded-2xl shadow-xl space-y-4">
+    <div className="glass-card p-7 border border-zinc-700/60 bg-zinc-950/85 rounded-3xl shadow-[0_0_35px_rgba(255,255,255,0.06)] space-y-5">
       
       {/* Header & Total Hours Card */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-slate-800 pb-4 gap-4">
-        <div className="flex items-center gap-2">
-          <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400">
-            <Zap className="w-5 h-5" />
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-zinc-800/80 pb-4 gap-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-zinc-900 text-zinc-100 border border-zinc-700/80 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+            <Zap className="w-5 h-5 text-zinc-200" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-slate-100">Fastest Path to 85%+ Job Readiness</h2>
-            <p className="text-xs text-slate-400">Sorted by ROI (Readiness Gain % / Learning Effort Hours)</p>
+            <h2 className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-zinc-300">
+              Fastest Path to 85%+ Job Readiness
+            </h2>
+            <p className="text-xs text-zinc-400 font-medium">Sorted by ROI (Readiness Gain % / Learning Effort Hours)</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-4 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800">
-          <div className="flex items-center gap-2 text-amber-400 font-bold">
-            <Clock className="w-4 h-4" />
-            <span>Total Effort: {pathData.total_hours_needed} hrs</span>
+        <div className="flex items-center gap-4 bg-zinc-900/90 px-4 py-2.5 rounded-2xl border border-zinc-700/80 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+          <div className="flex items-center gap-2 text-zinc-200 font-bold text-xs">
+            <Clock className="w-4 h-4 text-zinc-300" />
+            <span>Total Effort: <strong className="text-white">{pathData.total_hours_needed} hrs</strong></span>
           </div>
-          <div className="text-slate-400 text-xs flex items-center gap-1">
+          <div className="text-zinc-400 text-xs flex items-center gap-1.5 border-l border-zinc-750 pl-3">
             <span>Target:</span>
-            <span className="font-bold text-emerald-400">{pathData.target_readiness_pct}%</span>
+            <span className="font-black text-emerald-300 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-500/40 shadow-sm">{pathData.target_readiness_pct}%</span>
           </div>
         </div>
       </div>
@@ -76,35 +78,35 @@ export default function MinimumPathWidget({ pathData }: MinimumPathWidgetProps) 
         {pathData.learning_path.map((step) => (
           <div
             key={step.step_number}
-            className="p-4 bg-slate-950/60 border border-slate-800 hover:border-indigo-500/40 rounded-xl transition-all flex flex-col md:flex-row md:items-center justify-between gap-4"
+            className="p-4 bg-gradient-to-r from-zinc-900/70 via-zinc-950/80 to-zinc-900/70 border border-zinc-750 border-zinc-700/60 hover:border-zinc-400/80 rounded-2xl transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-[0_0_15px_rgba(255,255,255,0.03)] hover:shadow-[0_0_25px_rgba(255,255,255,0.08)]"
           >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-indigo-600/20 text-indigo-400 font-bold flex items-center justify-center text-sm border border-indigo-500/30">
+            <div className="flex items-center gap-3.5">
+              <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-white to-zinc-300 text-zinc-950 font-black flex items-center justify-center text-sm shadow-[0_0_15px_rgba(255,255,255,0.3)] shrink-0 border border-white">
                 {step.step_number}
               </div>
               <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="font-bold text-slate-100 text-sm">{step.skill_name}</h3>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-medium">
+                <div className="flex items-center gap-2.5">
+                  <h3 className="font-bold text-zinc-100 text-sm">{step.skill_name}</h3>
+                  <span className="text-[10px] px-2.5 py-0.5 rounded-lg bg-zinc-900 text-zinc-300 font-bold border border-zinc-700 shadow-sm">
                     {step.category}
                   </span>
                 </div>
-                <p className="text-xs text-slate-400 mt-0.5">{step.action}</p>
+                <p className="text-xs text-zinc-400 mt-1 font-medium">{step.action}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-xs">
-              <div className="bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
-                <span className="text-slate-400">Effort: </span>
-                <strong className="text-slate-200">{step.learning_effort_hours} hrs</strong>
+            <div className="flex items-center gap-3 text-xs flex-wrap">
+              <div className="bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-700 shadow-sm">
+                <span className="text-zinc-400">Effort: </span>
+                <strong className="text-zinc-100">{step.learning_effort_hours} hrs</strong>
               </div>
-              <div className="bg-emerald-950/40 border border-emerald-800/50 px-3 py-1.5 rounded-lg">
-                <span className="text-slate-400">Gain: </span>
-                <strong className="text-emerald-400">+{step.readiness_gain}%</strong>
+              <div className="bg-emerald-950/50 border border-emerald-500/40 px-3 py-1.5 rounded-xl shadow-[0_0_10px_rgba(16,185,129,0.15)]">
+                <span className="text-zinc-300 font-medium">Gain: </span>
+                <strong className="text-emerald-300 font-black">+{step.readiness_gain}%</strong>
               </div>
-              <div className="bg-amber-950/40 border border-amber-800/50 px-3 py-1.5 rounded-lg">
-                <span className="text-slate-400">ROI: </span>
-                <strong className="text-amber-400">{step.roi} %/hr</strong>
+              <div className="bg-zinc-900 border border-zinc-700/80 px-3 py-1.5 rounded-xl shadow-sm">
+                <span className="text-zinc-400">ROI: </span>
+                <strong className="text-zinc-100 font-bold">{step.roi} %/hr</strong>
               </div>
             </div>
           </div>

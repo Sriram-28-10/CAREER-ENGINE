@@ -67,43 +67,43 @@ export default function AdminDashboard() {
       
       {/* Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="glass-card p-5 bg-slate-900/60 border border-slate-800 rounded-2xl flex items-center gap-4">
-          <div className="p-3.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+        <div className="glass-card p-5 bg-zinc-950/80 border border-zinc-800 rounded-2xl flex items-center gap-4">
+          <div className="p-3.5 rounded-xl bg-zinc-800/80 text-zinc-200 border border-zinc-700/80">
             <Users className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-mono tracking-wider uppercase">System Students</p>
-            <h4 className="text-xl font-black text-slate-100">{systemStats.totalStudents}</h4>
+            <p className="text-[10px] text-zinc-500 font-mono tracking-wider uppercase">System Students</p>
+            <h4 className="text-xl font-black text-zinc-100">{systemStats.totalStudents}</h4>
           </div>
         </div>
 
-        <div className="glass-card p-5 bg-slate-900/60 border border-slate-800 rounded-2xl flex items-center gap-4">
+        <div className="glass-card p-5 bg-zinc-950/80 border border-zinc-800 rounded-2xl flex items-center gap-4">
           <div className="p-3.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             <Server className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-mono tracking-wider uppercase">System Companies</p>
-            <h4 className="text-xl font-black text-slate-100">{systemStats.totalCompanies}</h4>
+            <p className="text-[10px] text-zinc-500 font-mono tracking-wider uppercase">System Companies</p>
+            <h4 className="text-xl font-black text-zinc-100">{systemStats.totalCompanies}</h4>
           </div>
         </div>
 
-        <div className="glass-card p-5 bg-slate-900/60 border border-slate-800 rounded-2xl flex items-center gap-4">
+        <div className="glass-card p-5 bg-zinc-950/80 border border-zinc-800 rounded-2xl flex items-center gap-4">
           <div className="p-3.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
             <Award className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-mono tracking-wider uppercase">System Avg Score</p>
-            <h4 className="text-xl font-black text-slate-100">{systemStats.avgScore}%</h4>
+            <p className="text-[10px] text-zinc-500 font-mono tracking-wider uppercase">System Avg Score</p>
+            <h4 className="text-xl font-black text-zinc-100">{systemStats.avgScore}%</h4>
           </div>
         </div>
 
-        <div className="glass-card p-5 bg-slate-900/60 border border-slate-800 rounded-2xl flex items-center gap-4">
-          <div className="p-3.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+        <div className="glass-card p-5 bg-zinc-950/80 border border-zinc-800 rounded-2xl flex items-center gap-4">
+          <div className="p-3.5 rounded-xl bg-zinc-800/80 text-zinc-300 border border-zinc-700/80">
             <Activity className="w-5 h-5" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-mono tracking-wider uppercase">Total Assessments</p>
-            <h4 className="text-xl font-black text-slate-100">{systemStats.totalAssessments}</h4>
+            <p className="text-[10px] text-zinc-500 font-mono tracking-wider uppercase">Total Assessments</p>
+            <h4 className="text-xl font-black text-zinc-100">{systemStats.totalAssessments}</h4>
           </div>
         </div>
       </div>
@@ -112,27 +112,27 @@ export default function AdminDashboard() {
         
         {/* Left Monitor Server Health Panel */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="glass-card p-5 bg-slate-900/60 border border-slate-800 rounded-2xl space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="glass-card p-5 bg-zinc-950/80 border border-zinc-800 rounded-2xl space-y-5">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-indigo-400" />
+                <Shield className="w-5 h-5 text-zinc-200" />
                 <h3 className="text-sm font-bold text-white">LLM Server Health</h3>
               </div>
               <button
                 onClick={fetchOllamaHealth}
-                className="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 transition-colors"
+                className="p-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-400 transition-colors"
                 title="Refresh Status"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${ollamaStatus.loading ? "animate-spin text-indigo-400" : ""}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${ollamaStatus.loading ? "animate-spin text-zinc-200" : ""}`} />
               </button>
             </div>
 
             <div className="space-y-4">
               {/* Status indicator */}
-              <div className="flex items-center justify-between p-3.5 bg-slate-95% border border-slate-800 rounded-xl">
-                <span className="text-xs text-slate-400 font-medium">Ollama Client Status</span>
+              <div className="flex items-center justify-between p-3.5 bg-zinc-950 border border-zinc-800 rounded-xl">
+                <span className="text-xs text-zinc-400 font-medium">Ollama Client Status</span>
                 {ollamaStatus.loading ? (
-                  <span className="text-xs text-indigo-400 font-bold flex items-center gap-1.5">
+                  <span className="text-xs text-zinc-300 font-bold flex items-center gap-1.5">
                     <RefreshCw className="w-3.5 h-3.5 animate-spin" /> Checking
                   </span>
                 ) : ollamaStatus.available ? (
@@ -147,15 +147,15 @@ export default function AdminDashboard() {
               </div>
 
               {/* Model indicator */}
-              <div className="flex items-center justify-between p-3.5 bg-slate-95% border border-slate-800 rounded-xl">
-                <span className="text-xs text-slate-400 font-medium">Active LLM Model</span>
-                <span className="text-xs text-slate-200 font-mono font-bold bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
+              <div className="flex items-center justify-between p-3.5 bg-zinc-950 border border-zinc-800 rounded-xl">
+                <span className="text-xs text-zinc-400 font-medium">Active LLM Model</span>
+                <span className="text-xs text-zinc-200 font-mono font-bold bg-zinc-800 px-2 py-0.5 rounded border border-zinc-700">
                   {ollamaStatus.loading ? "---" : ollamaStatus.model || "None"}
                 </span>
               </div>
 
-              <div className="p-3 bg-indigo-950/20 border border-indigo-500/20 text-indigo-300 rounded-xl text-[10px] leading-relaxed">
-                <p className="font-bold flex items-center gap-1 mb-1">
+              <div className="p-3 bg-zinc-900/80 border border-zinc-700/80 text-zinc-300 rounded-xl text-[10px] leading-relaxed">
+                <p className="font-bold flex items-center gap-1 mb-1 text-zinc-200">
                   <Cpu className="w-3.5 h-3.5" /> Ollama Integration Notes:
                 </p>
                 Ollama local LLM service facilitates mock interview grading and conversational chatbot replies. Make sure you run Ollama locally on port 11434 with a downloaded model like Llama3.2.
@@ -166,22 +166,22 @@ export default function AdminDashboard() {
 
         {/* Right Q&A Manager Panel */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="glass-card p-6 border border-slate-800 bg-slate-900/60 rounded-2xl space-y-6">
+          <div className="glass-card p-6 border border-zinc-800 bg-zinc-950/80 rounded-2xl space-y-6">
             <div>
               <h3 className="text-base font-bold text-white">Interview Questions Manager</h3>
-              <p className="text-xs text-slate-400">View and append custom mock interview questions to the active database.</p>
+              <p className="text-xs text-zinc-400">View and append custom mock interview questions to the active database.</p>
             </div>
 
             {/* Add Custom Question Form */}
-            <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl space-y-4 text-xs">
-              <span className="font-bold text-slate-300 block">Add New Custom Question</span>
+            <div className="p-4 bg-zinc-950/90 border border-zinc-800 rounded-xl space-y-4 text-xs">
+              <span className="font-bold text-zinc-300 block">Add New Custom Question</span>
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-slate-500">Target Role</label>
+                  <label className="text-zinc-500">Target Role</label>
                   <select
                     value={newQuestion.role}
                     onChange={(e) => setNewQuestion((prev) => ({ ...prev, role: e.target.value }))}
-                    className="w-full bg-slate-900 border border-slate-800 px-3 py-2.5 rounded-lg text-slate-250 focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-zinc-900 border border-zinc-800 px-3 py-2.5 rounded-lg text-zinc-200 focus:outline-none focus:border-zinc-500"
                   >
                     <option value="data_analyst_intern">Data Analyst</option>
                     <option value="web_developer">Web Developer</option>
@@ -191,11 +191,11 @@ export default function AdminDashboard() {
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-slate-500">Category</label>
+                  <label className="text-zinc-500">Category</label>
                   <select
                     value={newQuestion.type}
                     onChange={(e) => setNewQuestion((prev) => ({ ...prev, type: e.target.value }))}
-                    className="w-full bg-slate-900 border border-slate-800 px-3 py-2.5 rounded-lg text-slate-250 focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-zinc-900 border border-zinc-800 px-3 py-2.5 rounded-lg text-zinc-200 focus:outline-none focus:border-zinc-500"
                   >
                     <option value="technical">Technical</option>
                     <option value="behavioral">Behavioral</option>
@@ -205,19 +205,19 @@ export default function AdminDashboard() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-slate-500">Question Content</label>
+                <label className="text-zinc-500">Question Content</label>
                 <input
                   type="text"
                   placeholder="Type mock question text..."
                   value={newQuestion.question}
                   onChange={(e) => setNewQuestion((prev) => ({ ...prev, question: e.target.value }))}
-                  className="w-full bg-slate-900 border border-slate-800 px-3.5 py-2.5 rounded-lg text-slate-200 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 rounded-lg text-zinc-200 focus:outline-none focus:border-zinc-500"
                 />
               </div>
 
               <button
                 onClick={addQuestion}
-                className="py-2 px-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="py-2.5 px-4 bg-gradient-to-r from-zinc-100 via-slate-200 to-zinc-300 hover:from-white hover:to-zinc-100 text-zinc-950 rounded-lg font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-md shadow-white/5"
               >
                 <Plus className="w-4 h-4" />
                 Add Question
@@ -226,23 +226,23 @@ export default function AdminDashboard() {
 
             {/* Questions Table */}
             <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
-              <span className="font-bold text-xs text-slate-400">Questions List</span>
+              <span className="font-bold text-xs text-zinc-400">Questions List</span>
               {customQuestions.map((q) => (
-                <div key={q.id} className="p-3 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between gap-4 text-xs">
+                <div key={q.id} className="p-3 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center justify-between gap-4 text-xs">
                   <div className="space-y-1.5">
-                    <p className="font-bold text-slate-200">{q.question}</p>
+                    <p className="font-bold text-zinc-200">{q.question}</p>
                     <div className="flex gap-2">
-                      <span className="text-[8px] font-mono bg-slate-800 border border-slate-700 px-2 py-0.5 rounded text-slate-400 uppercase">
+                      <span className="text-[8px] font-mono bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded text-zinc-400 uppercase">
                         {q.role.replace("_", " ")}
                       </span>
-                      <span className="text-[8px] font-mono bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded text-indigo-300 uppercase">
+                      <span className="text-[8px] font-mono bg-zinc-800/80 border border-zinc-700 px-2 py-0.5 rounded text-zinc-300 uppercase">
                         {q.type}
                       </span>
                     </div>
                   </div>
                   <button
                     onClick={() => removeQuestion(q.id)}
-                    className="p-1 rounded hover:bg-slate-900 text-slate-500 hover:text-red-400 transition-colors"
+                    className="p-1 rounded hover:bg-zinc-900 text-zinc-500 hover:text-red-400 transition-colors"
                   >
                     <Trash className="w-4 h-4" />
                   </button>

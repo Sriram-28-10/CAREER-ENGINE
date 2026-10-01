@@ -2,7 +2,7 @@
 ollama_client.py
 AI backend client — uses Google Gemini API (free tier) with Ollama local fallback.
 Provides health check, career chat, resume analysis, interview scoring, and resume parsing.
-Team SCORPIUS — v3.0
+Career Engine — v3.0
 """
 
 import json
@@ -193,7 +193,7 @@ def generate_career_response(
 ) -> Optional[str]:
     """Generate a career-guidance chatbot response."""
     system = (
-        "You are SCORPIUS AI, an expert career readiness assistant. "
+        "You are Career Engine AI, an expert career readiness assistant. "
         "You help students understand their skill gaps, prepare for interviews, "
         "and improve their career readiness scores. "
         "Keep responses concise (3-5 sentences), practical, and encouraging. "

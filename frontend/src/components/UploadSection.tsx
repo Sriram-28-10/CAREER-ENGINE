@@ -77,48 +77,52 @@ export default function UploadSection({
   };
 
   return (
-    <div className="glass-card p-6 border border-slate-800 bg-slate-900/90 rounded-2xl shadow-xl">
+    <div className="glass-card p-6 border border-zinc-700/80 bg-zinc-950/85 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.06)]">
       <div className="flex flex-col lg:flex-row gap-6 items-stretch justify-between">
         
         {/* Target Role Selector */}
-        <div className="flex-1 space-y-2">
-          <label className="text-sm font-semibold text-slate-300 flex items-center gap-2">
-            <Briefcase className="w-4 h-4 text-indigo-400" />
+        <div className="flex-1 space-y-2.5">
+          <label className="text-sm font-bold text-zinc-100 flex items-center gap-2">
+            <div className="p-1.5 rounded-lg bg-zinc-800 text-zinc-200 border border-zinc-700">
+              <Briefcase className="w-4 h-4" />
+            </div>
             Select Target Job Role
           </label>
           <div className="relative">
             <select
               value={selectedRole}
               onChange={(e) => onRoleChange(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-700 hover:border-indigo-500 rounded-xl px-4 py-3 text-slate-100 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer appearance-none"
+              className="w-full bg-zinc-900 border border-zinc-600 hover:border-zinc-300 rounded-xl px-4 py-3 text-zinc-100 font-bold focus:outline-none focus:ring-2 focus:ring-zinc-400 transition-all cursor-pointer appearance-none shadow-[0_0_15px_rgba(255,255,255,0.05)]"
             >
               {roles.map((r) => (
-                <option key={r.role_id} value={r.role_id} className="bg-slate-900 text-slate-100">
+                <option key={r.role_id} value={r.role_id} className="bg-zinc-950 text-zinc-100">
                   🎯 {r.role_name}
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-zinc-300 font-bold">
               ▼
             </div>
           </div>
-          <p className="text-xs text-slate-400">
-            {roles.find((r) => r.role_id === selectedRole)?.description || "Select a role to benchmark your skill twin."}
+          <p className="text-xs text-zinc-400 font-medium">
+            {roles.find((r) => r.role_id === selectedRole)?.description || "Select a role to benchmark your skill profile."}
           </p>
         </div>
 
         {/* Resume File Upload Drop Area */}
-        <div className="flex-1 space-y-2">
-          <label className="text-sm font-semibold text-slate-300 flex items-center gap-2">
-            <FileText className="w-4 h-4 text-emerald-400" />
+        <div className="flex-1 space-y-2.5">
+          <label className="text-sm font-bold text-zinc-100 flex items-center gap-2">
+            <div className="p-1.5 rounded-lg bg-zinc-800 text-zinc-200 border border-zinc-700">
+              <FileText className="w-4 h-4" />
+            </div>
             Upload Candidate Resume / GitHub Evidence
           </label>
           <div
             onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed rounded-xl p-4 flex items-center justify-center gap-3 cursor-pointer transition-all duration-200 ${
+            className={`border-2 border-dashed rounded-xl p-4 flex items-center justify-center gap-3 cursor-pointer transition-all duration-300 ${
               fileName
-                ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-300"
-                : "border-slate-700 hover:border-indigo-500/60 bg-slate-950/60 hover:bg-slate-900/60 text-slate-400"
+                ? "border-emerald-400 bg-emerald-950/20 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
+                : "border-zinc-600 hover:border-zinc-300 bg-zinc-900/80 hover:bg-zinc-900 text-zinc-300 shadow-[0_0_15px_rgba(255,255,255,0.06)] hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]"
             }`}
           >
             <input
@@ -129,25 +133,25 @@ export default function UploadSection({
               className="hidden"
             />
             {isUploading ? (
-              <div className="flex items-center gap-2 text-indigo-400 font-medium">
-                <Loader2 className="w-5 h-5 animate-spin" />
+              <div className="flex items-center gap-2 text-zinc-100 font-bold">
+                <Loader2 className="w-5 h-5 animate-spin text-white" />
                 Parsing resume & extracting skill proofs...
               </div>
             ) : fileName ? (
-              <div className="flex items-center gap-2 font-medium">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                <span>Uploaded: <strong>{fileName}</strong></span>
+              <div className="flex items-center gap-2 font-bold">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 animate-pulse" />
+                <span>Uploaded: <strong className="text-white">{fileName}</strong></span>
               </div>
             ) : (
-              <div className="flex items-center gap-2 text-sm font-medium">
-                <Upload className="w-5 h-5 text-indigo-400" />
-                <span>Drag & drop resume (PDF, DOCX, TXT) or <span className="text-indigo-400 underline">browse</span></span>
+              <div className="flex items-center gap-2.5 text-sm font-medium text-zinc-300">
+                <Upload className="w-5 h-5 text-white animate-bounce" />
+                <span>Drag & drop resume (PDF, DOCX, TXT) or <span className="text-white underline font-extrabold">browse</span></span>
               </div>
             )}
           </div>
           {uploadStatus && (
-            <p className="text-xs text-emerald-400 flex items-center gap-1 font-medium mt-1">
-              <CheckCircle2 className="w-3.5 h-3.5" /> {uploadStatus}
+            <p className="text-xs text-emerald-300 flex items-center gap-1.5 font-bold mt-1 shadow-sm">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> {uploadStatus}
             </p>
           )}
         </div>

@@ -1,7 +1,7 @@
 """
 main.py
-FastAPI entry point for Career Readiness Twin Backend API.
-Team SCORPIUS — v3.0 with Gemini AI, Interview Module, and Role Architecture.
+FastAPI entry point for Career Engine Backend API.
+Career Engine — v3.0 with Gemini AI, Interview Module, and Role Architecture.
 """
 
 import os
@@ -31,8 +31,8 @@ from app.ollama_client import (
 from app.interview import get_questions, get_all_questions, keyword_score_answer
 
 app = FastAPI(
-    title="Career Readiness Twin API v2.0",
-    description="Skill Confidence Scoring, Job Blockers, ROI Paths, Counterfactual, Ollama LLM, Interview Module — Team SCORPIUS",
+    title="Career Engine API v2.0",
+    description="Skill Confidence Scoring, Job Blockers, ROI Paths, Counterfactual, Ollama LLM, Interview Module — Career Engine",
     version="2.0.0"
 )
 
@@ -154,7 +154,7 @@ def get_candidate_confidence_scores(evidence_map: Dict[str, Dict[str, float]]) -
 # ─────────────────────────────────────────────────────────────────
 @app.get("/")
 def root():
-    return {"message": "Career Readiness Twin API v2.0 — Team SCORPIUS", "version": "2.0.0"}
+    return {"message": "Career Engine API v2.0", "version": "2.0.0"}
 
 @app.get("/api/health")
 def health():
@@ -163,7 +163,7 @@ def health():
     return {
         "backend": "online",
         "ollama": ollama_status,
-        "team": "Team SCORPIUS"
+        "team": "Career Engine"
     }
 
 # ─────────────────────────────────────────────────────────────────
@@ -211,7 +211,7 @@ def analyze(req: AnalysisRequest):
         "analysis": twin_analysis,
         "minimum_path": min_path,
         "readiness_feedback": readiness_feedback,
-        "team": "Team SCORPIUS"
+        "team": "Career Engine"
     }
 
 @app.post("/api/counterfactual")
@@ -225,7 +225,7 @@ def counterfactual(req: CounterfactualRequest):
         role_id=req.role_id,
         hypothetical_boosts=req.hypothetical_boosts
     )
-    result["team"] = "Team SCORPIUS"
+    result["team"] = "Career Engine"
     return result
 
 def extract_resume_text_from_bytes(filename: str, content: bytes) -> str:
@@ -390,7 +390,7 @@ async def upload_resume(
         "ai_parsed": ai_parsed,
         "readiness_feedback": readiness_feedback,
         "resume_text": raw_text,
-        "team": "Team SCORPIUS"
+        "team": "Career Engine"
     }
 
 
@@ -408,16 +408,16 @@ def chatbot_reply(req: ChatbotRequest):
         readiness_pct=req.readiness_pct or 63.5,
     )
     if ollama_reply:
-        return {"reply": ollama_reply, "role_id": req.role_id, "powered_by": "ollama", "team": "Team SCORPIUS"}
+        return {"reply": ollama_reply, "role_id": req.role_id, "powered_by": "ollama", "team": "Career Engine"}
 
     # Rule-based fallback
     msg = req.user_message.lower().strip()
     if any(g in msg for g in ["hello", "hi", "hey", "greetings"]):
-        reply = f"Hello! 👋 I'm your **SCORPIUS AI Career Assistant**. Ask me anything about improving your career readiness for **{role_name}** today!"
+        reply = f"Hello! 👋 I'm your **Career Engine AI Assistant**. Ask me anything about improving your career readiness for **{role_name}** today!"
     elif any(x in msg for x in ["blocker", "gap", "red", "overcome"]):
         reply = f"🔴 **Job Blockers** are skills below the required threshold for **{role_name}**. Check the Overcome Blockers widget and complete the Mock Eligibility Test for score updates!"
     elif any(x in msg for x in ["resume", "builder", "create resume"]):
-        reply = "📄 Use our **AI Resume Builder** tab! Fill in your details and sync it to update your Career Twin score."
+        reply = "📄 Use our **AI Resume Builder** tab! Fill in your details and sync it to update your Career Engine score."
     elif any(x in msg for x in ["quiz", "test", "mock", "interview"]):
         reply = f"📝 Check the **Interview Prep** page for role-specific Q&A with AI scoring for **{role_name}**!"
     elif "sql" in msg:
@@ -429,7 +429,7 @@ def chatbot_reply(req: ChatbotRequest):
     else:
         reply = f"For **{role_name}**, focus on closing your highest ROI skill gap first! Check the Minimum Path to Job widget for a personalized roadmap."
 
-    return {"reply": reply, "role_id": req.role_id, "powered_by": "rule-based", "team": "Team SCORPIUS"}
+    return {"reply": reply, "role_id": req.role_id, "powered_by": "rule-based", "team": "Career Engine"}
 
 # ─────────────────────────────────────────────────────────────────
 # Ollama Endpoints

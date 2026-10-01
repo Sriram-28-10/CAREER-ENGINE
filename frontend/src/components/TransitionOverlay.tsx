@@ -9,12 +9,12 @@ interface TransitionOverlayProps {
 }
 
 export default function TransitionOverlay({
-  message = "SYNCHRONIZING TWIN METRICS...",
+  message = "SYNCHRONIZING CAREER ENGINE METRICS...",
   onComplete,
 }: TransitionOverlayProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [visible, setVisible] = useState(true);
-  const [hudStatus, setHudStatus] = useState("BOOTING MECHA SYSTEMS...");
+  const [hudStatus, setHudStatus] = useState("INITIALIZING CAREER ENGINE CORE...");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -27,7 +27,6 @@ export default function TransitionOverlay({
     let height = (canvas.height = window.innerHeight);
 
     let frame = 0;
-    const radarLines: number[] = [];
 
     const handleResize = () => {
       if (!canvas) return;
@@ -36,150 +35,82 @@ export default function TransitionOverlay({
     };
     window.addEventListener("resize", handleResize);
 
-    // Tech HUD particle sparks
-    const sparks = Array.from({ length: 40 }, () => ({
+    // Silver spark particles
+    const sparks = Array.from({ length: 50 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 3,
-      vy: (Math.random() - 0.5) * 3,
+      vx: (Math.random() - 0.5) * 3.5,
+      vy: (Math.random() - 0.5) * 3.5,
       size: Math.random() * 2 + 1,
       life: Math.random() * 50 + 50,
+      alpha: Math.random() * 0.7 + 0.3,
     }));
 
-    const drawMechaScorpion = (c: CanvasRenderingContext2D, cx: number, cy: number, scale: number) => {
+    const drawSilverEngineCore = (c: CanvasRenderingContext2D, cx: number, cy: number, scale: number) => {
       c.save();
       c.translate(cx, cy);
       c.scale(scale, scale);
 
-      // Glowing red mecha style configurations
-      c.strokeStyle = "rgba(239, 68, 68, 0.85)";
-      c.shadowColor = "rgba(239, 68, 68, 0.9)";
+      // Outer Rotating Hexagon Frame
+      c.save();
+      c.rotate(frame * 0.02);
+      c.strokeStyle = "rgba(241, 245, 249, 0.85)";
+      c.shadowColor = "rgba(255, 255, 255, 0.9)";
       c.shadowBlur = 15;
       c.lineWidth = 2.5;
 
-      // 1. Draw Tail Segments (Curving Upwards)
       c.beginPath();
-      // Base link
-      c.moveTo(0, 40);
-      c.lineTo(-10, 60);
-      c.lineTo(10, 60);
+      for (let i = 0; i < 6; i++) {
+        const a = (i * Math.PI) / 3;
+        const x = Math.cos(a) * 65;
+        const y = Math.sin(a) * 65;
+        if (i === 0) c.moveTo(x, y);
+        else c.lineTo(x, y);
+      }
       c.closePath();
       c.stroke();
+      c.restore();
 
-      // Tail spine linkages
-      const segments = [
-        { x: 0, y: 75, r: 8 },
-        { x: 12, y: 92, r: 7 },
-        { x: 28, y: 104, r: 6 },
-        { x: 48, y: 110, r: 5 },
-        { x: 70, y: 108, r: 4 },
-        { x: 88, y: 95, r: 4 },
-        { x: 96, y: 74, r: 3 },
-      ];
+      // Middle Counter-Rotating Gyroscope Ring
+      c.save();
+      c.rotate(-frame * 0.035);
+      c.strokeStyle = "rgba(203, 213, 225, 0.9)";
+      c.lineWidth = 2;
+      c.beginPath();
+      c.arc(0, 0, 48, 0, Math.PI * 2);
+      c.stroke();
 
-      segments.forEach((seg, i) => {
+      // Ring notch dashes
+      for (let i = 0; i < 12; i++) {
+        const a = (i * Math.PI) / 6;
         c.beginPath();
-        c.arc(seg.x, seg.y, seg.r, 0, Math.PI * 2);
+        c.moveTo(Math.cos(a) * 44, Math.sin(a) * 44);
+        c.lineTo(Math.cos(a) * 52, Math.sin(a) * 52);
         c.stroke();
-        if (i > 0) {
-          c.beginPath();
-          c.moveTo(segments[i-1].x, segments[i-1].y);
-          c.lineTo(seg.x, seg.y);
-          c.stroke();
-        }
-      });
+      }
+      c.restore();
 
-      // 2. Stinger (Mechanical sharp pincer at tail tip)
-      const tip = segments[segments.length - 1];
+      // Inner Glowing Quantum Core
       c.beginPath();
-      c.moveTo(tip.x, tip.y);
-      c.quadraticCurveTo(tip.x - 5, tip.y - 30, tip.x - 28, tip.y - 35);
-      c.lineTo(tip.x - 18, tip.y - 12);
-      c.closePath();
-      c.fillStyle = "rgba(239, 68, 68, 0.95)";
-      c.fill();
-      c.stroke();
-
-      // Stinger glow target circle
-      c.beginPath();
-      c.arc(tip.x - 28, tip.y - 35, 4, 0, Math.PI * 2);
-      c.fillStyle = "#fff";
+      c.arc(0, 0, 24, 0, Math.PI * 2);
+      const coreGrad = c.createRadialGradient(0, 0, 2, 0, 0, 24);
+      coreGrad.addColorStop(0, "#ffffff");
+      coreGrad.addColorStop(0.5, "rgba(226, 232, 240, 0.9)");
+      coreGrad.addColorStop(1, "rgba(148, 163, 184, 0.2)");
+      c.fillStyle = coreGrad;
+      c.shadowBlur = 20;
+      c.shadowColor = "#ffffff";
       c.fill();
 
-      // 3. Mecha Carapace (Angular segmented body shield)
+      // Central Starlight Flare
       c.beginPath();
-      c.moveTo(0, -35); // Head tip
-      c.lineTo(25, -15);
-      c.lineTo(20, 20);
-      c.lineTo(0, 40);
-      c.lineTo(-20, 20);
-      c.lineTo(-25, -15);
-      c.closePath();
-      c.stroke();
-
-      // Carapace inner circuitry lines
-      c.beginPath();
+      c.moveTo(-35, 0);
+      c.lineTo(35, 0);
       c.moveTo(0, -35);
-      c.lineTo(0, 40);
-      c.moveTo(-25, -15);
-      c.lineTo(25, -15);
-      c.moveTo(-20, 20);
-      c.lineTo(20, 20);
-      c.strokeStyle = "rgba(239, 68, 68, 0.4)";
-      c.lineWidth = 1.2;
+      c.lineTo(0, 35);
+      c.strokeStyle = "rgba(255, 255, 255, 0.95)";
+      c.lineWidth = 1.5;
       c.stroke();
-
-      // 4. Claws (Pincers / Pedipalps)
-      c.lineWidth = 2.5;
-      c.strokeStyle = "rgba(239, 68, 68, 0.85)";
-      
-      // Left Claw arm
-      c.beginPath();
-      c.moveTo(-15, -28);
-      c.lineTo(-45, -45);
-      c.lineTo(-65, -25);
-      c.stroke();
-
-      // Left Pincer (claws)
-      c.beginPath();
-      c.arc(-70, -25, 12, 1.2 * Math.PI, 0.2 * Math.PI, true);
-      c.stroke();
-      c.beginPath();
-      c.arc(-64, -22, 8, 1.1 * Math.PI, 0.4 * Math.PI, true);
-      c.stroke();
-
-      // Right Claw arm
-      c.beginPath();
-      c.moveTo(15, -28);
-      c.lineTo(45, -45);
-      c.lineTo(65, -25);
-      c.stroke();
-
-      // Right Pincer (claws)
-      c.beginPath();
-      c.arc(70, -25, 12, 1.8 * Math.PI, 0.8 * Math.PI);
-      c.stroke();
-      c.beginPath();
-      c.arc(64, -22, 8, 1.9 * Math.PI, 0.6 * Math.PI);
-      c.stroke();
-
-      // 5. Angular Mecha Legs (3 on left, 3 on right)
-      const legAngles = [-10, 5, 20];
-      legAngles.forEach((angle, idx) => {
-        // Left legs
-        c.beginPath();
-        c.moveTo(-18, angle);
-        c.lineTo(-48, angle - 5 - (idx * 5));
-        c.lineTo(-60, angle + 15 - (idx * 3));
-        c.stroke();
-
-        // Right legs
-        c.beginPath();
-        c.moveTo(18, angle);
-        c.lineTo(48, angle - 5 - (idx * 5));
-        c.lineTo(60, angle + 15 - (idx * 3));
-        c.stroke();
-      });
 
       c.restore();
     };
@@ -187,19 +118,17 @@ export default function TransitionOverlay({
     const render = () => {
       frame++;
       
-      // Base dark tech background
-      ctx.fillStyle = "#090505";
+      // Base Twinkle Black space background
+      ctx.fillStyle = "#03050a";
       ctx.fillRect(0, 0, width, height);
 
-      // Draw cybernetic radar grid background
       const centerX = width / 2;
       const centerY = height / 2;
 
-      ctx.strokeStyle = "rgba(239, 68, 68, 0.05)";
+      // Cybernetic Silver radar concentric circles
+      ctx.strokeStyle = "rgba(226, 232, 240, 0.06)";
       ctx.lineWidth = 1;
-
-      // Concentric circles
-      for (let r = 50; r < width; r += 80) {
+      for (let r = 60; r < width; r += 90) {
         ctx.beginPath();
         ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
         ctx.stroke();
@@ -211,42 +140,36 @@ export default function TransitionOverlay({
       ctx.lineTo(width, centerY);
       ctx.moveTo(centerX, 0);
       ctx.lineTo(centerX, height);
+      ctx.strokeStyle = "rgba(226, 232, 240, 0.08)";
       ctx.stroke();
 
-      // Radar scanning sweep sweep line
-      const sweepAngle = (frame * 0.02) % (Math.PI * 2);
+      // Radar scanning sweep line
+      const sweepAngle = (frame * 0.025) % (Math.PI * 2);
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
-      ctx.lineTo(centerX + Math.cos(sweepAngle) * 350, centerY + Math.sin(sweepAngle) * 350);
-      ctx.strokeStyle = "rgba(239, 68, 68, 0.15)";
+      ctx.lineTo(centerX + Math.cos(sweepAngle) * 380, centerY + Math.sin(sweepAngle) * 380);
+      ctx.strokeStyle = "rgba(241, 245, 249, 0.25)";
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Draw HUD targets
-      ctx.strokeStyle = "rgba(239, 68, 68, 0.3)";
-      ctx.strokeRect(centerX - 180, centerY - 180, 360, 360);
-      ctx.strokeRect(centerX - 190, centerY - 190, 380, 380);
-
-      // Rotating corner bracket design
+      // Rotating corner brackets
       ctx.save();
       ctx.translate(centerX, centerY);
       ctx.rotate(frame * 0.005);
-      ctx.strokeStyle = "rgba(239, 68, 68, 0.4)";
+      ctx.strokeStyle = "rgba(203, 213, 225, 0.35)";
       ctx.lineWidth = 1.5;
-      const bracketSize = 210;
-      // Draw corner lines
-      ctx.strokeRect(-bracketSize, -bracketSize, 40, 40);
-      ctx.strokeRect(bracketSize - 40, -bracketSize, 40, 40);
-      ctx.strokeRect(-bracketSize, bracketSize - 40, 40, 40);
-      ctx.strokeRect(bracketSize - 40, bracketSize - 40, 40, 40);
+      const bracketSize = 200;
+      ctx.strokeRect(-bracketSize, -bracketSize, 35, 35);
+      ctx.strokeRect(bracketSize - 35, -bracketSize, 35, 35);
+      ctx.strokeRect(-bracketSize, bracketSize - 35, 35, 35);
+      ctx.strokeRect(bracketSize - 35, bracketSize - 35, 35, 35);
       ctx.restore();
 
-      // Draw the main Red Mecha Tech Scorpion
-      // Zoom in mecha scorpion scale factor
-      const scale = Math.min(1.8, (frame * 0.05) + 0.1);
-      drawMechaScorpion(ctx, centerX, centerY - 40, scale);
+      // Draw Central Silver Engine Core
+      const scale = Math.min(1.7, (frame * 0.04) + 0.2);
+      drawSilverEngineCore(ctx, centerX, centerY - 45, scale);
 
-      // Render system sparkles/sparks
+      // Render silver sparks
       sparks.forEach((s) => {
         s.x += s.vx;
         s.y += s.vy;
@@ -258,7 +181,9 @@ export default function TransitionOverlay({
         }
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(239, 68, 68, 0.6)";
+        ctx.fillStyle = `rgba(241, 245, 249, ${s.alpha})`;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = "#ffffff";
         ctx.fill();
       });
 
@@ -269,9 +194,9 @@ export default function TransitionOverlay({
 
     // Sequence progress messages
     const timers = [
-      setTimeout(() => setHudStatus("ACQUIRING NEURAL TARGET LOCK..."), 600),
-      setTimeout(() => setHudStatus("OVERCLOCKING COGNITIVE TWIN ENGINE..."), 1300),
-      setTimeout(() => setHudStatus("SCORPIUS SYSTEMS ACTIVE. SYNC COMPLETE!"), 2000),
+      setTimeout(() => setHudStatus("SYNCHRONIZING CAREER READINESS PROFILES..."), 600),
+      setTimeout(() => setHudStatus("OVERCLOCKING COGNITIVE CAREER ENGINE..."), 1300),
+      setTimeout(() => setHudStatus("CAREER ENGINE ACTIVE. SYNC COMPLETE!"), 2000),
       setTimeout(() => {
         setVisible(false);
         const exitTimer = setTimeout(() => {
@@ -290,56 +215,56 @@ export default function TransitionOverlay({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-end bg-[#070303] pb-12 transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-end bg-[#03050a] pb-12 transition-opacity duration-500 ease-out ${
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
-      {/* HUD Radar & Mecha Scorpion Canvas */}
+      {/* HUD Radar & Silver Engine Canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
-      {/* Mecha Tech Dashboard Console Bar */}
-      <div className="relative z-10 w-full max-w-xl px-6 py-5 bg-black/75 border border-red-500/30 backdrop-blur-md rounded-2xl shadow-2xl space-y-4 text-center">
+      {/* Silver Tech Dashboard Console Bar */}
+      <div className="relative z-10 w-full max-w-xl px-6 py-5 bg-zinc-950/85 border border-zinc-700/80 backdrop-blur-md rounded-2xl shadow-2xl shadow-black/80 space-y-4 text-center">
         
         {/* Core Stats Indicator Row */}
-        <div className="grid grid-cols-4 gap-2 text-[10px] text-red-500 font-mono tracking-wider border-b border-red-950 pb-2.5">
+        <div className="grid grid-cols-4 gap-2 text-[10px] text-zinc-300 font-mono tracking-wider border-b border-zinc-800 pb-2.5">
           <div className="flex items-center gap-1 justify-center">
-            <Cpu className="w-3.5 h-3.5 animate-pulse" />
+            <Cpu className="w-3.5 h-3.5 animate-pulse text-zinc-200" />
             <span>CORE: ON</span>
           </div>
           <div className="flex items-center gap-1 justify-center">
-            <Target className="w-3.5 h-3.5" />
+            <Target className="w-3.5 h-3.5 text-zinc-200" />
             <span>LOCK: ACTV</span>
           </div>
           <div className="flex items-center gap-1 justify-center">
-            <Shield className="w-3.5 h-3.5" />
+            <Shield className="w-3.5 h-3.5 text-zinc-200" />
             <span>SECURE: ON</span>
           </div>
           <div className="flex items-center gap-1 justify-center">
-            <Activity className="w-3.5 h-3.5 animate-bounce" />
+            <Activity className="w-3.5 h-3.5 animate-bounce text-zinc-200" />
             <span>FPS: 60.0</span>
           </div>
         </div>
 
         <div className="space-y-1">
-          <h2 className="text-3xl font-extrabold tracking-[0.3em] text-red-500 drop-shadow-[0_0_12px_rgba(239,68,68,0.7)]">
-            TEAM SCORPIUS
+          <h2 className="text-3xl font-extrabold tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-zinc-400 drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]">
+            CAREER ENGINE
           </h2>
-          <p className="text-xs font-mono font-bold text-red-400/90 tracking-widest animate-pulse uppercase">
+          <p className="text-xs font-mono font-bold text-zinc-200 tracking-widest animate-pulse uppercase">
             {hudStatus}
           </p>
-          <p className="text-[10px] font-mono text-slate-500 mt-1 uppercase">
+          <p className="text-[10px] font-mono text-zinc-400 mt-1 uppercase">
             {message}
           </p>
         </div>
 
-        {/* Red Tech loading progress bar */}
-        <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-red-900/40 relative">
-          <div className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-red-600 rounded-full animate-[scorp_2.5s_linear_infinite]" />
+        {/* Silver Tech loading progress bar */}
+        <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden border border-zinc-700/80 relative">
+          <div className="h-full bg-gradient-to-r from-zinc-200 via-white to-zinc-300 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)] animate-[engine_2.5s_linear_infinite]" />
         </div>
       </div>
 
       <style>{`
-        @keyframes scorp {
+        @keyframes engine {
           0% { width: 0%; }
           100% { width: 100%; }
         }
