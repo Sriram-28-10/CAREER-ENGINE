@@ -1,280 +1,29 @@
-<![CDATA[<div align="center">
+🚀 Platform Features :
 
-# 🚀 Career Engine
+🧠 AI-Proctored Mock Tests — Real-time eye-tracking via webcam, fullscreen enforcement, and tab-switch auto-termination to replicate real exam environments.
 
-### AI-Powered Career Readiness Platform
+🔮 Counterfactual "What-If" Simulator — Toggle hypothetical skills on/off to instantly see how your job-readiness score changes.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?logo=fastapi)](https://fastapi.tiangolo.com/)
-[![Gemini AI](https://img.shields.io/badge/Gemini-AI-4285F4?logo=google)](https://ai.google.dev/)
-[![Three.js](https://img.shields.io/badge/Three.js-WebGL-000?logo=three.js)](https://threejs.org/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+🛤️ Minimum Path to Job Readiness — ROI-sorted learning roadmap showing exact hours-to-invest per skill, so you focus on what matters most first.
 
-**Career Engine** bridges the gap between _where you are_ and _where you need to be_ — using AI to assess, guide, and accelerate your job readiness.
+🎤 Voice-Based Interview Prep — Speech-to-text mock interviews scored by Gemini AI with real-time feedback.
 
-[Live Demo](#) · [Report Bug](https://github.com/Sriram-28-10/CAREER-ENGINE/issues) · [Request Feature](https://github.com/Sriram-28-10/CAREER-ENGINE/issues)
+📄 Gemini-Powered Resume Analysis — Domain-specific resume parsing with contextual improvement suggestions (not generic keyword matching).
 
-</div>
+🌌 Immersive 3D UI — Three.js cosmic WebGL background with luminous chrome & specular glass design system.
 
----
+👥 Multi-Role Architecture — Separate dashboards for Students, Recruiters, and Admins — one platform, three experiences.
 
-## 📋 Table of Contents
+📚 Smart Resource Engine — Auto-curated Google, Coursera, and YouTube recommendations mapped to each individual skill gap.
 
-- [About](#-about)
-- [What Makes Career Engine Unique](#-what-makes-career-engine-unique)
-- [Advantages Over Existing Platforms](#-advantages-over-existing-platforms)
-- [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
-- [Getting Started](#-getting-started)
-- [Project Structure](#-project-structure)
-- [Features Deep Dive](#-features-deep-dive)
-- [API Endpoints](#-api-endpoints)
-- [Contributing](#-contributing)
-- [Team](#-team)
+🏆 Advantages Over Existing Platforms :
 
----
+All-in-One — Combines skill assessment, proctored testing, interview prep, resume building, and learning paths in a single dashboard.
 
-## 🎯 About
+Actionable, Not Just Analytical — Goes beyond gap analysis by providing a prioritized action plan with estimated effort & ROI.
 
-Career Engine is a full-stack AI-powered career readiness platform that analyzes your resume, identifies skill gaps, generates personalized learning paths, conducts AI-proctored mock tests, and simulates interview scenarios — all in one immersive dashboard.
+Privacy-First Proctoring — Camera/mic streams processed locally in-browser; no recordings uploaded to servers.
 
-Built with **Next.js 16**, **FastAPI**, and **Google Gemini AI**, it provides students and professionals with a data-driven roadmap to land their target role.
+Instant Feedback Loop — Quiz → Gap Analysis → Learning Path → Re-test, all without leaving the app.
 
----
-
-## ✨ What Makes Career Engine Unique
-
-| Feature | Description |
-|---------|-------------|
-| 🧠 **AI-Proctored Mock Tests** | Real-time eye-tracking via webcam, fullscreen enforcement & tab-switch auto-termination — replicates real exam environments |
-| 🔮 **Counterfactual "What-If" Simulator** | Toggle hypothetical skills on/off to instantly see how your job-readiness score changes — no other platform offers this |
-| 🛤️ **Minimum Path to Job Readiness** | ROI-sorted learning roadmap showing exact hours-to-invest per skill, so you learn what matters most first |
-| 🎤 **Voice-Based Interview Prep** | Speech-to-text mock interviews scored by Gemini AI with real-time feedback |
-| 📄 **Gemini-Powered Resume Analysis** | Domain-specific resume parsing with contextual improvement suggestions — not generic keyword matching |
-| 🌌 **Immersive 3D UI** | Three.js cosmic WebGL background with ultra-luminous chrome & specular glass design system |
-| 👥 **Multi-Role Architecture** | Separate dashboards for Students, Company Recruiters & Admins — one platform, three experiences |
-| 📚 **Smart Resource Engine** | Auto-curated Google, Coursera & YouTube recommendations mapped to each individual skill gap |
-
----
-
-## 🏆 Advantages Over Existing Platforms
-
-- **All-in-One** — Combines skill assessment, proctored testing, interview prep, resume building & learning paths in a single dashboard (no juggling 5 different tools)
-- **Actionable, Not Just Analytical** — Doesn't just show gaps; provides a prioritized action plan with estimated effort & ROI
-- **Privacy-First Proctoring** — Camera/mic streams are processed locally in-browser; no recordings uploaded to servers
-- **Instant Feedback Loop** — Quiz → Gap Analysis → Learning Path → Re-test, all without leaving the app
-- **Zero Config** — One-click Google OAuth login, auto-detected role-based quiz banks, no manual setup required
-- **Real-Time AI Scoring** — Powered by Google Gemini for context-aware, domain-specific evaluations
-- **Immersive Experience** — WebGL cosmic backgrounds & specular glass UI make career prep feel inspiring, not boring
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **Frontend** | Next.js 16, React 19, TypeScript, Tailwind CSS 4 |
-| **3D / Graphics** | Three.js, WebGL |
-| **Backend** | Python, FastAPI, Uvicorn |
-| **AI / ML** | Google Gemini API, Web Speech API |
-| **Auth** | NextAuth.js (Google OAuth) |
-| **Proctoring** | MediaDevices API (Camera/Mic), Visibility API, Eye-Tracking |
-| **Styling** | Ultra-luminous chrome design system with specular glass components |
-
----
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────┐
-│                   Client (Browser)               │
-│  ┌─────────────┐  ┌──────────┐  ┌────────────┐  │
-│  │  Next.js 16  │  │ Three.js │  │  WebRTC /  │  │
-│  │  React 19    │  │  WebGL   │  │  MediaAPI  │  │
-│  └──────┬───────┘  └──────────┘  └────────────┘  │
-└─────────┼────────────────────────────────────────┘
-          │ REST API
-┌─────────▼────────────────────────────────────────┐
-│                 FastAPI Backend                    │
-│  ┌──────────┐  ┌───────────┐  ┌───────────────┐  │
-│  │ /analyze │  │ /interview│  │ /counterfactual│  │
-│  │ /roles   │  │ /quiz     │  │ /resources     │  │
-│  └────┬─────┘  └─────┬─────┘  └───────┬───────┘  │
-└───────┼──────────────┼─────────────────┼──────────┘
-        │              │                 │
-┌───────▼──────────────▼─────────────────▼──────────┐
-│              Google Gemini AI API                   │
-└────────────────────────────────────────────────────┘
-```
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Node.js** ≥ 18
-- **Python** ≥ 3.10
-- **Google Gemini API Key** ([Get one here](https://ai.google.dev/))
-
-### Installation
-
-**1. Clone the repository**
-```bash
-git clone https://github.com/Sriram-28-10/CAREER-ENGINE.git
-cd CAREER-ENGINE
-```
-
-**2. Setup Backend**
-```bash
-cd backend
-python -m venv venv
-venv\Scripts\activate        # Windows
-# source venv/bin/activate   # macOS/Linux
-pip install -r requirements.txt
-```
-
-**3. Setup Frontend**
-```bash
-cd frontend
-npm install
-```
-
-**4. Configure Environment**
-
-Create `.env` in the backend directory:
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-Create `.env.local` in the frontend directory:
-```env
-NEXTAUTH_SECRET=your_secret_here
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-```
-
-**5. Run the Application**
-
-```bash
-# Terminal 1 — Backend
-cd backend
-uvicorn app.main:app --reload --port 8000
-
-# Terminal 2 — Frontend
-cd frontend
-npm run dev
-```
-
-The app will be available at **http://localhost:3000**
-
----
-
-## 📁 Project Structure
-
-```
-CAREER-ENGINE/
-├── frontend/
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── page.tsx              # Main dashboard (tab navigation)
-│   │   │   ├── login/page.tsx        # 3-step login flow
-│   │   │   ├── globals.css           # Chrome design system
-│   │   │   └── layout.tsx            # Root layout
-│   │   └── components/
-│   │       ├── ReadinessGauge.tsx     # SVG circular readiness gauge
-│   │       ├── MockTestQuiz.tsx       # AI-proctored quiz engine
-│   │       ├── InterviewPrep.tsx      # Voice-based interview simulator
-│   │       ├── ResumeBuilder.tsx      # Resume form + preview
-│   │       ├── CounterfactualSimulator.tsx  # What-if skill toggle
-│   │       ├── MinimumPathWidget.tsx  # ROI learning path
-│   │       ├── JobBlockersTable.tsx   # Skills gap matrix
-│   │       ├── OvercomeBlockers.tsx   # Blocker resolution plans
-│   │       ├── ResourceSuggestions.tsx # Curated learning resources
-│   │       ├── ThreeBackground.tsx    # WebGL cosmic background
-│   │       ├── AIChatbot.tsx          # Floating AI assistant
-│   │       ├── IntroHero.tsx          # 3D tilt intro carousel
-│   │       ├── AdminDashboard.tsx     # Admin panel
-│   │       └── CompanyDashboard.tsx   # Recruiter panel
-│   ├── package.json
-│   └── tailwind.config.ts
-├── backend/
-│   ├── app/
-│   │   ├── main.py                   # FastAPI routes
-│   │   └── ollama_client.py          # AI client wrapper
-│   ├── requirements.txt
-│   └── tests/
-├── .gitignore
-└── README.md
-```
-
----
-
-## 🔍 Features Deep Dive
-
-### 📊 Dashboard
-The main dashboard displays your **Readiness Score** as an animated SVG gauge, highlights skill gaps in a matrix table, and provides AI-generated action plans — all in specular glass cards.
-
-### 🧪 AI-Proctored Mock Tests
-- **Webcam eye-tracking** with simulated neural radar fallback
-- **Fullscreen enforcement** — exits counted as violations
-- **Tab-switch detection** — auto-submits after 3 violations
-- **Live proctor HUD** — camera preview, mic indicator, timer, violation counter
-
-### 🎙️ Interview Prep
-- Web Speech API for **real-time voice transcription**
-- Gemini AI scores answers on relevance, depth & communication
-- Role-specific question banks (Data Analyst, Full Stack Developer, ML Engineer, etc.)
-
-### 🔮 What-If Simulator
-- Toggle skills you're _considering_ learning
-- Instantly see projected readiness score changes
-- Make informed decisions about what to learn next
-
-### 📄 Resume Builder
-- Structured form with live preview
-- **Gemini AI analysis** for domain-specific feedback
-- Print / PDF export support
-- Sync resume data with your readiness profile
-
----
-
-## 📡 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/analyze` | Analyze resume against target role |
-| `GET` | `/api/roles` | Get available job roles |
-| `GET` | `/api/resources` | Get learning resources for skill gaps |
-| `POST` | `/api/interview/questions` | Generate interview questions |
-| `POST` | `/api/interview/score` | Score interview answers |
-| `POST` | `/api/counterfactual` | Simulate what-if scenarios |
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 👨‍💻 Team
-
-Built with ❤️ by **Team SCORPIUS**
-
-- **Sriram S** — [@Sriram-28-10](https://github.com/Sriram-28-10)
-
----
-
-<div align="center">
-
-⭐ **Star this repo if Career Engine helped you!** ⭐
-
-</div>
-]]>
+Zero Config — One-click Google OAuth login, auto-detected role-based quiz banks, no manual setup required.
